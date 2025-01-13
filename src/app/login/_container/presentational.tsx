@@ -3,14 +3,13 @@
 import { Button, Field, Input, Label } from "@headlessui/react";
 
 import { loginSchema } from "./_schema";
-import type { FC } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, type FC } from "react";
 import { parseWithZod } from "@conform-to/zod";
 import { useForm } from "@conform-to/react";
 import { login } from "./action";
 
 export const AuthPresentational: FC = () => {
-  const [lastResult, action, isPending] = useFormState(login, undefined);
+  const [lastResult, action, isPending] = useActionState(login, undefined);
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {
