@@ -10,7 +10,7 @@ export const LgoinContainer = () => {
   return (
     <>
       <LoginPresentational />
-      <Link href="/signup">新規登録</Link>
+      <Link href="/signup">新規登録画面へ</Link>
     </>
   );
 };
