@@ -1,7 +1,7 @@
-import { AuthContainer } from "./_container";
+import { LgoinContainer } from "./_container/container";
 
 const Page = () => {
-  return <AuthContainer />;
+  return <LgoinContainer />;
 };
 
 export default Page;

@@ -35,5 +35,5 @@ export async function signup(_prevState: unknown, formData: FormData) {
       });
     });
 
-  return redirect("/books");
+  return redirect("/summary");
 }

@@ -8,7 +8,7 @@ import { parseWithZod } from "@conform-to/zod";
 import { useForm } from "@conform-to/react";
 import { login } from "./action";
 
-export const AuthPresentational: FC = () => {
+export const LoginPresentational: FC = () => {
   const [lastResult, action, isPending] = useActionState(login, undefined);
   const [form, fields] = useForm({
     lastResult,

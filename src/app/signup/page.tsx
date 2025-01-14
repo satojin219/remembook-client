@@ -1,8 +1,8 @@
-import { AuthContainer } from "../login/_container";
+import { SignupContainer } from "./_container";
 
 
 const Page = () => {
-  return <AuthContainer />;
+  return <SignupContainer />;
 };
 
 export default Page;

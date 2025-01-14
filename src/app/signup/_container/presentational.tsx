@@ -8,6 +8,7 @@ import { parseWithZod } from "@conform-to/zod";
 import { useForm } from "@conform-to/react";
 import { signup } from "./action";
 import { signupSchema } from "./_schema";
+import Link from "next/link";
 
 export const SignupPresentational: FC = () => {
   const [lastResult, action, isPending] = useFormState(signup, undefined);
