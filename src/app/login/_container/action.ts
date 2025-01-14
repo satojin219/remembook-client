@@ -31,5 +31,5 @@ export async function login(prevState: unknown, formData: FormData) {
       cookieStore.set("accessToken", data.accessToken);
     });
 
-  return redirect("/book");
+  return redirect("/summary");
 }

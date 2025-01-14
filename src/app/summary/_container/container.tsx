@@ -3,6 +3,8 @@
 import { Suspense } from "react";
 import { fetchSummariedBookList } from "./fetcher";
 import { SummariedBookList } from "./_component/SummariedBook";
+import { SummariesPresentational } from "./presentational";
+
 
 export const SummariesContainer = async () => {
   const summariedBooks = await fetchSummariedBookList();
@@ -12,6 +14,7 @@ export const SummariesContainer = async () => {
       <Suspense fallback={<p>読み込み中...</p>}>
         <SummariedBookList books={summariedBooks.data?.books || []} />
       </Suspense>
+      <SummariesPresentational />
     </>
   );
 };
