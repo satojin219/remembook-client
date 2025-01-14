@@ -5,15 +5,16 @@ import Link from "next/link";
 import type { FC } from "react";
 
 type Props = {
+  bookId: string;
   questions: Question[];
 };
 
-export const QuestionList: FC<Props> = async ({ questions }) => {
+export const QuestionList: FC<Props> = async ({ bookId,questions }) => {
   return (
     <>
       {questions.map((question, index) => {
         return (
-          <Link key={question.id} href={`/${question.id}`}>
+          <Link key={question.id} href={`/summary/${bookId}/question/${question.summaryId}`}>
             {question.body}
           </Link>
         );

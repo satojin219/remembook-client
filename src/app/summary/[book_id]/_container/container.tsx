@@ -1,7 +1,7 @@
 "use server";
 
 import { type FC, Suspense } from "react";
-import { fetchSummariedBookDetail } from "../fetcher";
+import { fetchSummariedBookDetail } from "./fetcher";
 import { fetchBook } from "@/lib/fetchBook";
 import { BookInfo } from "@/components/BookInfo";
 import { QuestionList } from "./_components/QuestionList";
@@ -17,7 +17,12 @@ export const SummaryContainer: FC<Props> = async ({ bookId }) => {
     <>
       <Suspense fallback={<p>読み込み中...</p>}>
         <BookInfo book={book.data} />
-        <QuestionList questions={summary.data?.questions || []} />
+      </Suspense>
+      <Suspense fallback={<p>読み込み中...</p>}>
+        <QuestionList
+          bookId={book.data?.id || ""}
+          questions={summary.data?.questions || []}
+        />
       </Suspense>
     </>
   );

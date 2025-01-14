@@ -1,15 +1,15 @@
 import type { FC } from "react";
-import { SummaryContainer } from "./_container/container";
+import { QuestionContainer } from "./_container/container";
 
 type Props = {
   params: {
-    book_id: string;
+    summary_id: string;
   };
 };
 
 const Page: FC<Props> = async (props) => {
   const params = await props.params;
-  return <SummaryContainer bookId={params.book_id} />;
+  return <QuestionContainer summaryId={params.summary_id} />;
 };
 
 export default Page;
