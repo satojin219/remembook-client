@@ -8,7 +8,7 @@ type Params = {
   book_id: string;
 };
 
-export async function GET(req: NextRequest, { params }: { params: Params }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<Params> }) {
   const { book_id } = await params;
 
   try {

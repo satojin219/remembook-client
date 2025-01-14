@@ -1,4 +1,5 @@
-import { AuthContainer } from "./_container";
+import { AuthContainer } from "../login/_container";
+
 
 const Page = () => {
   return <AuthContainer />;
