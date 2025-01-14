@@ -1,4 +1,4 @@
-import { BookContainer } from "./_container/container";
+import { BookContainer } from "./_feature/container";
 
 const Page = () => {
   return <BookContainer  />;

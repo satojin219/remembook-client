@@ -2,7 +2,7 @@
 
 import type { Book } from "@/types/book";
 import { parseWithZod } from "@conform-to/zod";
-import { searchBookSchema } from "./_schema";
+import { searchBookSchema } from "../_schema";
 import type { APIResponse } from "@/types/common";
 
 export const searchBook = async (

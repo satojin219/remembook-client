@@ -3,7 +3,7 @@
 import { parseWithZod } from "@conform-to/zod";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { signupSchema } from "./_schema";
+import { signupSchema } from "../_schema";
 
 export async function signup(_prevState: unknown, formData: FormData) {
   const submission = parseWithZod(formData, {

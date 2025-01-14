@@ -4,7 +4,7 @@ import { parseWithZod } from "@conform-to/zod";
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { answerSchema } from "./_schema";
+import { answerSchema } from "../_schema";
 import type { APIResponse } from "@/types/common";
 
 export type AnswerResponse = {

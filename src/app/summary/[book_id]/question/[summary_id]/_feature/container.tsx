@@ -1,7 +1,6 @@
 import type { FC } from "react";
 import { QuestionPresentational } from "./presentational";
-import { fetchQuestion } from "./fetcher";
-import { answerQuestion } from "./action";
+import { fetchQuestion, answerQuestion } from "./_api";
 
 type Props = {
   summaryId: string;
@@ -17,7 +16,7 @@ export const QuestionContainer: FC<Props> = async ({ summaryId }) => {
     questionId: question.data.id,
     summaryId,
   });
-  
+
   return (
     <QuestionPresentational
       question={question.data}

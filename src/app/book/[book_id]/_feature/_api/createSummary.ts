@@ -3,7 +3,7 @@
 import { parseWithZod } from "@conform-to/zod";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { createSummarySchema } from "./_schema";
+import { createSummarySchema } from "../_schema";
 import type { Book } from "@/types/book";
 
 export async function createSummary(

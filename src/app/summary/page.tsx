@@ -1,4 +1,4 @@
-import { SummariesContainer } from "./_container/container";
+import { SummariesContainer } from "./_feature/container";
 
 const Page = () => {
   return <SummariesContainer />;

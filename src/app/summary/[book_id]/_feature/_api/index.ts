@@ -1,0 +1,1 @@
+export { fetchSummariedBookDetail } from "./fetchSummariedBookDetail";

@@ -1,4 +1,4 @@
-import { SignupContainer } from "./_container";
+import { SignupContainer } from "./_feature";
 
 
 const Page = () => {

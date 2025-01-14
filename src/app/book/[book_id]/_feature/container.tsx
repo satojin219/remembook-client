@@ -4,8 +4,8 @@ import { Suspense } from "react";
 
 import { BookDetailPresentational } from "./presentational";
 import { BookInfo } from "@/components/BookInfo";
-import { createSummary } from "./action";
-import { fetchBook } from "@/lib/fetchBook";
+import { createSummary } from "./_api";
+import { fetchBook } from "@/lib";
 
 type Props = {
   bookId: string;

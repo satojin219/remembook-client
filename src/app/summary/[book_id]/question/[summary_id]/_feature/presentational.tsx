@@ -2,7 +2,7 @@
 
 import type { APIResponse } from "@/types/common";
 import type { Question } from "@/types/question";
-import type { AnswerResponse } from "./action";
+import type { AnswerResponse } from "./_api/answerQuestion";
 import { Button, Field, Label, Textarea } from "@headlessui/react";
 import { useActionState, type FC } from "react";
 import { useForm } from "@conform-to/react";

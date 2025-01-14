@@ -1,4 +1,4 @@
-import { LgoinContainer } from "./_container/container";
+import { LgoinContainer } from "./_feature/container";
 
 const Page = () => {
   return <LgoinContainer />;

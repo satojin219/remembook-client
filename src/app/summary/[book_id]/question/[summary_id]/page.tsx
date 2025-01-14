@@ -1,4 +1,4 @@
-import { QuestionContainer } from "./_container/container";
+import { QuestionContainer } from "./_feature/container";
 
 const Page = async ({
   params,

@@ -1,10 +1,9 @@
 "use server";
 
 import { Suspense } from "react";
-import { fetchSummariedBookList } from "./fetcher";
-import { SummariedBookList } from "./_component/SummariedBook";
+import { fetchSummariedBookList } from "./_api";
+import { SummariedBookList } from "./_component";
 import { SummariesPresentational } from "./presentational";
-
 
 export const SummariesContainer = async () => {
   const summariedBooks = await fetchSummariedBookList();

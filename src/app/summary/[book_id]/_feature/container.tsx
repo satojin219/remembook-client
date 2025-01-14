@@ -1,10 +1,10 @@
 "use server";
 
 import { type FC, Suspense } from "react";
-import { fetchSummariedBookDetail } from "./fetcher";
-import { fetchBook } from "@/lib/fetchBook";
-import { BookInfo } from "@/components/BookInfo";
-import { QuestionList } from "./_components/QuestionList";
+import { fetchSummariedBookDetail } from "./_api";
+import { fetchBook } from "@/lib";
+import { BookInfo } from "@/components";
+import { QuestionList } from "./_components";
 
 type Props = {
   bookId: string;

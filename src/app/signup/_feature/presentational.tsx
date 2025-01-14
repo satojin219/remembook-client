@@ -2,18 +2,19 @@
 
 import { Button, Field, Input, Label } from "@headlessui/react";
 
-import { loginSchema } from "./_schema";
-import { useActionState, type FC } from "react";
+import type { FC } from "react";
+import { useFormState } from "react-dom";
 import { parseWithZod } from "@conform-to/zod";
 import { useForm } from "@conform-to/react";
-import { login } from "./action";
+import { signup } from "./_api";
+import { signupSchema } from "./_schema";
 
-export const LoginPresentational: FC = () => {
-  const [lastResult, action, isPending] = useActionState(login, undefined);
+export const SignupPresentational: FC = () => {
+  const [lastResult, action, isPending] = useFormState(signup, undefined);
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {
-      return parseWithZod(formData, { schema: loginSchema });
+      return parseWithZod(formData, { schema: signupSchema });
     },
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
@@ -21,6 +22,16 @@ export const LoginPresentational: FC = () => {
 
   return (
     <form onSubmit={form.onSubmit} action={action}>
+      <Field>
+        <Label>ユーザー名</Label>
+        <Input
+          type="text"
+          key={fields.name.key}
+          name={fields.name.name}
+          defaultValue={fields.name.initialValue}
+        />
+        <p className="text-red-500">{fields.name.errors}</p>
+      </Field>
       <Field>
         <Label>メールアドレス</Label>
         <Input
@@ -43,7 +54,7 @@ export const LoginPresentational: FC = () => {
       </Field>
 
       <Button type="submit" disabled={isPending}>
-        ログイン
+        新規登録
       </Button>
     </form>
   );

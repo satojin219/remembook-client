@@ -1,7 +1,7 @@
 "use server";
 
 import { parseWithZod } from "@conform-to/zod";
-import { loginSchema } from "./_schema";
+import { loginSchema } from "../_schema";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
