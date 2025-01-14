@@ -3,12 +3,12 @@
 import type { Book } from "@/types/book";
 import { parseWithZod } from "@conform-to/zod";
 import { searchBookSchema } from "./_schema";
-import type { ServerActionResponse } from "@/types/common";
+import type { APIResponse } from "@/types/common";
 
 export const searchBook = async (
   prevState: unknown,
   formData: FormData
-): Promise<ServerActionResponse<Book[]>> => {
+): Promise<APIResponse<Book[]>> => {
   const submission = parseWithZod(formData, { schema: searchBookSchema });
   if (submission.status !== "success") {
     return { ok: false, submission: submission.reply() };

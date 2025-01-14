@@ -4,7 +4,7 @@ import { Suspense } from "react";
 
 import { BookDetailPresentational } from "./presentational";
 import { BookInfo } from "@/components/BookInfo";
-import { createSummary } from "./createSummary";
+import { createSummary } from "./action";
 import { fetchBook } from "@/lib/fetchBook";
 
 type Props = {
@@ -13,16 +13,15 @@ type Props = {
 
 export const BookDetailContainer: React.FC<Props> = async ({ bookId }) => {
   const book = await fetchBook(bookId);
-  const createSummaryWithBookId = createSummary.bind(null, book);
-  
+
   return (
     <div>
       <Suspense fallback={<p>読み込み中...</p>}>
-        <BookInfo key={bookId} book={book} />
+        <BookInfo key={bookId} book={book.data} />
       </Suspense>
       <BookDetailPresentational
-        book={book}
-        createSummary={createSummaryWithBookId}
+        book={book.data}
+        createSummary={createSummary}
       />
     </div>
   );

@@ -7,8 +7,9 @@ import { createSummarySchema } from "./_schema";
 import type { Book } from "@/types/book";
 
 type Props = {
-  book: Book;
+  book: Book | undefined;
   createSummary: (
+    book: Book,
     _prevState: unknown,
     formData: FormData
   ) => Promise<SubmissionResult<string[]>>;
@@ -18,7 +19,14 @@ export const BookDetailPresentational: FC<Props> = ({
   book,
   createSummary,
 }) => {
-  const [lastResult, action, isPending] = useActionState(createSummary, null);
+  if (!book) {
+    return null;
+  }
+  const createSummaryWithBookId = createSummary.bind(null, book);
+  const [lastResult, action, isPending] = useActionState(
+    createSummaryWithBookId,
+    null
+  );
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {

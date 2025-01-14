@@ -1,6 +1,6 @@
 import type { SubmissionResult } from "@conform-to/react";
 
-export type ServerActionResponse<T> = {
+export type APIResponse<T> = {
   ok: boolean;
   submission?: SubmissionResult;
   errorMessage?: string;

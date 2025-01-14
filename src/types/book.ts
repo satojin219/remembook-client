@@ -8,3 +8,11 @@ export type Book = {
   imageSrc: string;
   linkSrc: string;
 };
+
+export type SummariedBookItem = {
+  id: string;
+  title: string;
+  author: string[];
+  imageUrl: string;
+  googleBooksId: string;
+};

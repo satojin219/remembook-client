@@ -1,12 +1,17 @@
+"use server";
+
 import type { Book } from "@/types/book";
 import Image from "next/image";
 import type { FC } from "react";
 
 type Props = {
-  book: Book;
+  book: Book | undefined;
 };
 
 export const BookInfo: FC<Props> = async ({ book }) => {
+  if (!book) {
+    return null;
+  }
   return (
     <div>
       <h1>{book.title}</h1>

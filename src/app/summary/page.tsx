@@ -1,7 +1,7 @@
-
+import { SummariesContainer } from "./_container/container";
 
 const Page = () => {
-  return <div>sumamary</div>;
+  return <SummariesContainer />;
 };
 
 export default Page;
