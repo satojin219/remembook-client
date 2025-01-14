@@ -2,15 +2,14 @@
 
 import { Button, Field, Input, Label } from "@headlessui/react";
 
-import type { FC } from "react";
-import { useFormState } from "react-dom";
+import { useActionState, type FC } from "react";
 import { parseWithZod } from "@conform-to/zod";
 import { useForm } from "@conform-to/react";
 import { signup } from "./_api";
 import { signupSchema } from "./_schema";
 
 export const SignupPresentational: FC = () => {
-  const [lastResult, action, isPending] = useFormState(signup, undefined);
+  const [lastResult, action, isPending] = useActionState(signup, undefined);
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {
