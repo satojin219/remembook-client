@@ -53,7 +53,7 @@ export const SignupPresentational: FC = () => {
       </Field>
 
       <Button type="submit" disabled={isPending}>
-        新規登録
+        {isPending ? "登録中..." : "新規登録"}
       </Button>
     </form>
   );

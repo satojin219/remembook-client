@@ -37,7 +37,7 @@ export const BookPresentational: FC = () => {
           <p className="text-red-500">{fields.searchWord.errors}</p>
         )}
         <Button type="submit" disabled={isPending}>
-          検索
+          {isPending ? "検索中..." : "検索"}
         </Button>
       </form>
 

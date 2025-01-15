@@ -43,7 +43,7 @@ export const LoginPresentational: FC = () => {
       </Field>
 
       <Button type="submit" disabled={isPending}>
-        ログイン
+        {isPending ? "ログイン中..." :"ログイン" }
       </Button>
     </form>
   );

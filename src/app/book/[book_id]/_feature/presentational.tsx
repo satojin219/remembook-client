@@ -44,7 +44,7 @@ export const BookDetailPresentational: FC<Props> = ({
         value={fields.summary.value}
       />
       <button type="submit" disabled={isPending}>
-        要約を作成
+        {isPending ? "要約を作成中..." : "要約を作成"}
       </button>
     </form>
   );
