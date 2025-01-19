@@ -6,13 +6,10 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const searchWord = req.nextUrl.searchParams.get("searchWord");
-
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API}?q=${encodeURIComponent(
       searchWord || ""
-    )}&key=${
-      process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY
-    }`
+    )}&key=${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY}`
   ).then(async (res) => {
     const jsonResponse =
       (await res.json()) as unknown as GoogleBooksApiResponse;

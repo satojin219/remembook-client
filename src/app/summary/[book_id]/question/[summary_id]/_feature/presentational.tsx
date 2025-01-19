@@ -4,10 +4,12 @@ import type { APIResponse } from "@/types/common";
 import type { Question } from "@/types/question";
 import type { AnswerResponse } from "./_api/answerQuestion";
 import { Button, Field, Label, Textarea } from "@headlessui/react";
-import { useActionState, type FC } from "react";
+import { useActionState, useEffect, type FC } from "react";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { answerSchema } from "./_schema";
+import { enablePushNotification } from "@/serviceWorker/enablePushNotification";
+import { useParams } from "next/navigation";
 
 type Props = {
   question: Question;
@@ -15,12 +17,23 @@ type Props = {
     prevState: unknown,
     formData: FormData
   ) => Promise<APIResponse<AnswerResponse>>;
+  sendMessage: (
+    userId: string,
+    bookId: string,
+    summaryId: string,
+    body: string,
+    score: number
+  ) => Promise<APIResponse<void>>;
+  userId: string;
 };
 
 export const QuestionPresentational: FC<Props> = ({
   question,
   answerQuestion,
+  sendMessage,
+  userId,
 }) => {
+  const { book_id } = useParams();
   const [lastResult, action, isPending] = useActionState(answerQuestion, {
     ok: false,
   });
@@ -31,6 +44,35 @@ export const QuestionPresentational: FC<Props> = ({
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
   });
+
+  useEffect(() => {
+    const handleServiceWorkerMessage = (event: MessageEvent) => {
+      console.log("messageきたよ", event.data);
+      if (!event.data.action) {
+        return;
+      }
+
+      switch (event.data.action) {
+        case "redirect-from-notificationclick":
+          if (event.data.url) {
+            window.open(event.data.url, "_blank");
+          }
+          break;
+      }
+    };
+
+    navigator.serviceWorker.addEventListener(
+      "message",
+      handleServiceWorkerMessage
+    );
+
+    return () => {
+      navigator.serviceWorker.removeEventListener(
+        "message",
+        handleServiceWorkerMessage
+      );
+    };
+  }, []);
 
   return (
     <>
@@ -58,6 +100,22 @@ export const QuestionPresentational: FC<Props> = ({
           <h2>{lastResult.data.score}点</h2>
           <p>要約： {lastResult.data.summary}</p>
           <p>あなたの回答： {lastResult.data.userAnswer}</p>
+          <button type="button" onClick={enablePushNotification}>
+            push通知を有効にす
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              sendMessage(
+                userId,
+                book_id as string,
+                question.summaryId,
+                question.body,
+                lastResult.data?.score || 0
+              );
+            }}>
+            push通知
+          </button>
         </>
       )}
     </>
