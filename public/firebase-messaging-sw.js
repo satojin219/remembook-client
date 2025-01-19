@@ -1,3 +1,26 @@
+
+
+self.addEventListener("notificationclick", (event) => {
+  console.log("click", event.notification.data.url);
+  event.notification.close();
+  const urlToOpen = event.notification.data.url;
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url === urlToOpen && 'focus' in client) {
+          return client.focus();
+        }
+      }
+
+      if (self.clients.openWindow) {
+        return self.clients.openWindow(urlToOpen);
+      }
+    })
+  );
+});
+
+
+
 importScripts('https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/9.23.0/firebase-messaging-compat.js');
 
@@ -13,30 +36,6 @@ const app = firebase.initializeApp({
 });
 
 const messaging = firebase.messaging();
-
-// バックグラウンドメッセージを処理
-// messaging.onBackgroundMessage((payload) => {
-//   console.log("onBackgroundMessage", payload);
-
-//   if (!payload.notification) return;
-//   navigator.serviceWorker.ready.then((_registration) => {
-//     const notificationTitle = payload.notification.title || "通知";
-//     const notificationOptions = {
-//       body: payload.notification.body || "新しいメッセージがあります。",
-//       icon: payload.notification.image || "/default-icon.png",
-//       data: {
-//         link: payload.notification.click_action || "/",
-//       },
-//     };
-//     console.log("notificationTitle", notificationTitle);
-//     console.log("notificationOptions", notificationOptions);
-
-//     self.registration.showNotification(notificationTitle, notificationOptions);
-//   })
-// });
-
-
-
 
 self.addEventListener('push', (event) => {
   let data = {};
@@ -54,30 +53,4 @@ self.addEventListener('push', (event) => {
         url: link,
       },
     }))
-
 });
-
-self.addEventListener("notificationclick", (event) => {
-  console.log("click", typeof event.notification.data.url);
-  event.notification.close();
-
-  event.waitUntil(
-    clients
-      .matchAll({
-        type: "window",
-        includeUncontrolled: true,
-      })
-      .then((clientList) => {
-        console.log("clientList", clientList);
-
-        if (clientList.length > 0) {
-          const client = clientList[0];
-          client.postMessage({
-            action: 'redirect-from-notificationclick',
-            url: event.notification.data.url,
-          })
-        }
-      })
-  );
-});
-

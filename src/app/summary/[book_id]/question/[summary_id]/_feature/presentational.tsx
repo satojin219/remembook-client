@@ -45,35 +45,6 @@ export const QuestionPresentational: FC<Props> = ({
     shouldRevalidate: "onInput",
   });
 
-  useEffect(() => {
-    const handleServiceWorkerMessage = (event: MessageEvent) => {
-      console.log("messageきたよ", event.data);
-      if (!event.data.action) {
-        return;
-      }
-
-      switch (event.data.action) {
-        case "redirect-from-notificationclick":
-          if (event.data.url) {
-            window.open(event.data.url, "_blank");
-          }
-          break;
-      }
-    };
-
-    navigator.serviceWorker.addEventListener(
-      "message",
-      handleServiceWorkerMessage
-    );
-
-    return () => {
-      navigator.serviceWorker.removeEventListener(
-        "message",
-        handleServiceWorkerMessage
-      );
-    };
-  }, []);
-
   return (
     <>
       {!lastResult.ok && !isPending && (
