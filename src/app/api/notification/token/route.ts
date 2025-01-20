@@ -12,7 +12,6 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get("userId");
 
-    console.log("ユーザーID", userId);
     if (!userId) {
       return NextResponse.json(
         { errorMessage: "User ID not found in query parameters." },
@@ -43,7 +42,6 @@ export async function POST(req: NextRequest) {
 
     const cookieStore = await cookies();
     const userId = cookieStore.get("userId");
-    console.log("ユーザーID", userId);
     if (!userId) {
       return NextResponse.json(
         { ok: false, errorMessage: "User ID not found in cookies." },

@@ -2,7 +2,6 @@ import { getToken } from "firebase/messaging";
 import { messaging } from "../lib/firebase/config";
 
 export const enablePushNotification = async () => {
-  console.log("通知許可をリクエストします。");
   if (!("Notification" in window)) {
     alert("このブラウザーはデスクトップ通知には対応していません。");
   } else {
@@ -17,7 +16,6 @@ export const enablePushNotification = async () => {
       })
         .then((currentToken) => {
           if (currentToken) {
-            console.log("トークン取得成功", currentToken);
             fetch(
               `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/notification/token`,
               {

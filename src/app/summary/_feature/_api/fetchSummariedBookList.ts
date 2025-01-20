@@ -29,7 +29,6 @@ export const fetchSummariedBookList = async (): Promise<
     );
 
     const summaries = (await response.json()) as FetchSummariedBookResponse;
-    console.log("summaries", summaries);
     return { ok: true, data: summaries };
   } catch (error) {
     console.error("Get summaries failed:", error);

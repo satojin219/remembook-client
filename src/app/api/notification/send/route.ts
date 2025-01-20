@@ -33,7 +33,6 @@ export async function POST(req: NextRequest) {
         },
         token: tokenResponse.fcmToken,
       })
-      .then((res) => console.log("res, ", res))
       .catch((error) => {
         console.error("Error sending notification:", error);
         throw new Error("Failed to send notification.");
