@@ -7,7 +7,7 @@ type GetResponse = {
   fcmToken: string | null;
 };
 
-export async function GET(req: NextRequest): Promise<APIResponse<GetResponse>> {
+export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get("userId");
@@ -37,7 +37,7 @@ export async function GET(req: NextRequest): Promise<APIResponse<GetResponse>> {
   }
 }
 
-export async function POST(req: NextRequest): Promise<APIResponse<null>> {
+export async function POST(req: NextRequest) {
   try {
     const { fcmToken } = await req.json();
 
