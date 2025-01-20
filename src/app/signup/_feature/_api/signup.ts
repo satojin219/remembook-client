@@ -31,7 +31,10 @@ export async function signup(_prevState: unknown, formData: FormData) {
     .then((res) => res.json())
     .then((data) => {
       cookieStore.set("accessToken", data.accessToken, {
-        maxAge: 3 * 24 * 60 * 60,
+        maxAge: 24 * 24 * 60 * 60,
+      });
+      cookieStore.set("userId", data.userId, {
+        maxAge: 24 * 24 * 60 * 60,
       });
     });
 

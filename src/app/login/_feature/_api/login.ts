@@ -28,7 +28,12 @@ export async function login(prevState: unknown, formData: FormData) {
   })
     .then((res) => res.json())
     .then((data) => {
-      cookieStore.set("accessToken", data.accessToken);
+      cookieStore.set("accessToken", data.accessToken, {
+        maxAge: 24 * 24 * 60 * 60,
+      });
+      cookieStore.set("userId", data.userId, {
+        maxAge: 24 * 24 * 60 * 60,
+      });
     });
 
   return redirect("/summary");
