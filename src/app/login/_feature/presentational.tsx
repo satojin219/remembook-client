@@ -20,7 +20,7 @@ export const LoginPresentational: FC = () => {
   });
 
   return (
-    <form onSubmit={form.onSubmit} action={action}>
+    <form action={action}>
       <Field>
         <Label>メールアドレス</Label>
         <Input
@@ -43,7 +43,7 @@ export const LoginPresentational: FC = () => {
       </Field>
 
       <Button type="submit" disabled={isPending}>
-        {isPending ? "ログイン中..." :"ログイン" }
+        {isPending ? "ログイン中..." : "ログイン"}
       </Button>
     </form>
   );

@@ -20,7 +20,7 @@ export const SignupPresentational: FC = () => {
   });
 
   return (
-    <form onSubmit={form.onSubmit} action={action}>
+    <form action={action}>
       <Field>
         <Label>ユーザー名</Label>
         <Input
