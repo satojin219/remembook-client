@@ -22,7 +22,7 @@ export const fetchSummariedBookDetail = async (
   }
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_REMEMBOOK_API_URL}/api/v1/books/${bookId}`,
+      `${process.env.REMEMBOOK_API_URL}/api/v1/books/${bookId}`,
       {
         headers: {
           "Content-Type": "application/json",

@@ -8,12 +8,15 @@ type Params = {
   book_id: string;
 };
 
-export async function GET(req: NextRequest, { params }: { params: Promise<Params> }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<Params> }
+) {
   const { book_id } = await params;
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API}/${book_id}?key=${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY}`
+      `${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API}/${book_id}?key=${process.env.GOOGLE_BOOKS_API_KEY}`
     );
 
     if (response.status === 429) {

@@ -18,7 +18,7 @@ export const fetchSummariedBookList = async (): Promise<
   }
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_REMEMBOOK_API_URL}/api/v1/books`,
+      `${process.env.REMEMBOOK_API_URL}/api/v1/books`,
       {
         headers: {
           "Content-Type": "application/json",

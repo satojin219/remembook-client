@@ -16,7 +16,7 @@ export async function login(prevState: unknown, formData: FormData) {
   const email = formData.get("email");
   const password = formData.get("password");
   const cookieStore = await cookies();
-  await fetch(`${process.env.NEXT_PUBLIC_REMEMBOOK_API_URL}/auth/login`, {
+  await fetch(`${process.env.REMEMBOOK_API_URL}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

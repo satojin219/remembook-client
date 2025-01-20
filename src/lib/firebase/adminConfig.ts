@@ -8,15 +8,15 @@ const adminApp =
     ? getApp()
     : initializeApp({
         credential: credential.cert({
-          projectId: process.env.NEXT_PUBLIC_FIREBASE_ADMIN_PROJECT_ID,
-          clientEmail: process.env.NEXT_PUBLIC_FIREBASE_ADMIN_CLIENT_EMAIL,
+          projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
+          clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
           privateKey:
-            process.env.NEXT_PUBLIC_FIREBASE_ADMIN_PRIVATE_KEY?.replace(
+            process.env.FIREBASE_ADMIN_PRIVATE_KEY?.replace(
               /\\n/g,
               "\n"
             ),
         }),
-        databaseURL: process.env.NEXT_PUBLIC_FIREBASE_ADMIN_DATABASE_URL,
+        databaseURL: process.env.FIREBASE_ADMIN_DATABASE_URL,
       });
 
 export const adminMessage = getMessaging(adminApp);

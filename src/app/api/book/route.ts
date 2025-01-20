@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API}?q=${encodeURIComponent(
       searchWord || ""
-    )}&key=${process.env.NEXT_PUBLIC_GOOGLE_BOOKS_API_KEY}`
+    )}&key=${process.env.GOOGLE_BOOKS_API_KEY}`
   ).then(async (res) => {
     const jsonResponse =
       (await res.json()) as unknown as GoogleBooksApiResponse;

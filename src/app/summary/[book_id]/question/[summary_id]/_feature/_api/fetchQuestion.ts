@@ -14,7 +14,7 @@ export const fetchQuestion = async (
   }
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_REMEMBOOK_API_URL}/api/v1/summary/${summaryId}/question`,
+      `${process.env.REMEMBOOK_API_URL}/api/v1/summary/${summaryId}/question`,
       {
         headers: {
           "Content-Type": "application/json",

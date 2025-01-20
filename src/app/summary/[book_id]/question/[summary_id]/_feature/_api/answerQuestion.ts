@@ -39,7 +39,7 @@ export async function answerQuestion(
 
   try {
     const result = await fetch(
-      `${process.env.NEXT_PUBLIC_REMEMBOOK_API_URL}/api/v1/summary/${identifiers.summaryId}/answer/${identifiers.questionId}`,
+      `${process.env.REMEMBOOK_API_URL}/api/v1/summary/${identifiers.summaryId}/answer/${identifiers.questionId}`,
       {
         method: "POST",
         headers: {

@@ -25,7 +25,7 @@ export async function createSummary(
   if (!accessToken) {
     return redirect("/login");
   }
-  await fetch(`${process.env.NEXT_PUBLIC_REMEMBOOK_API_URL}/api/v1/summary`, {
+  await fetch(`${process.env.REMEMBOOK_API_URL}/api/v1/summary`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
