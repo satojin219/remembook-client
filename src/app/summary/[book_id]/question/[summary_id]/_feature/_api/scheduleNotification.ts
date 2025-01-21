@@ -2,7 +2,7 @@
 import type { APIResponse } from "@/types/common";
 import { cookies } from "next/headers";
 
-export const sendMessage = async (
+export const scheduleNotification = async (
   userId: string,
   bookId: string,
   summaryId: string,
@@ -15,7 +15,7 @@ export const sendMessage = async (
     return { ok: false, errorMessage: "ログインしてください。" };
   }
   try {
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/notification/send`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/notification/schedule`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

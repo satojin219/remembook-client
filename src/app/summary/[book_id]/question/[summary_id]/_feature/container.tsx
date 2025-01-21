@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { QuestionPresentational } from "./presentational";
 import { fetchQuestion, answerQuestion } from "./_api";
-import { sendMessage } from "./_api/sendMessage";
+import { scheduleNotification } from "./_api/scheduleNotification";
 import { cookies } from "next/headers";
 
 type Props = {
@@ -24,7 +24,7 @@ export const QuestionContainer: FC<Props> = async ({ summaryId }) => {
     <QuestionPresentational
       question={question.data}
       answerQuestion={answerQuestionWithIds}
-      sendMessage={sendMessage}
+      scheduleNotification={scheduleNotification}
       userId={userId || ""}
     />
   );

@@ -4,7 +4,7 @@ import type { APIResponse } from "@/types/common";
 import type { Question } from "@/types/question";
 import type { AnswerResponse } from "./_api/answerQuestion";
 import { Button, Field, Label, Textarea } from "@headlessui/react";
-import { useActionState, useEffect, type FC } from "react";
+import { useActionState, type FC } from "react";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { answerSchema } from "./_schema";
@@ -17,7 +17,7 @@ type Props = {
     prevState: unknown,
     formData: FormData
   ) => Promise<APIResponse<AnswerResponse>>;
-  sendMessage: (
+  scheduleNotification: (
     userId: string,
     bookId: string,
     summaryId: string,
@@ -30,7 +30,7 @@ type Props = {
 export const QuestionPresentational: FC<Props> = ({
   question,
   answerQuestion,
-  sendMessage,
+  scheduleNotification,
   userId,
 }) => {
   const { book_id } = useParams();
@@ -77,7 +77,7 @@ export const QuestionPresentational: FC<Props> = ({
           <button
             type="button"
             onClick={() => {
-              sendMessage(
+              scheduleNotification(
                 userId,
                 book_id as string,
                 question.summaryId,

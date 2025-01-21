@@ -1,40 +1,6 @@
-import { adminDatabase } from "@/lib/firebase/adminConfig"; // adminConfigでの初期化を確認
-import type { APIResponse } from "@/types/common";
+import { adminDatabase } from "@/lib/firebase/adminConfig";
 import { cookies } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
-
-type GetResponse = {
-  fcmToken: string | null;
-};
-
-export async function GET(req: NextRequest) {
-  try {
-    const { searchParams } = new URL(req.url);
-    const userId = searchParams.get("userId");
-
-    if (!userId) {
-      return NextResponse.json(
-        { errorMessage: "User ID not found in query parameters." },
-        { status: 200 }
-      );
-    }
-    const userRef = adminDatabase.ref(`users/${userId}`);
-    const snapshot = await userRef
-      .once("value")
-      .then((snap) => snap.toJSON() as { fcmToken: string });
-
-    const fcmToken = snapshot.fcmToken || null;
-
-    return NextResponse.json({ fcmToken }, { status: 200 });
-  } catch (error) {
-    console.error("Error fetching FCM token:", error);
-
-    return NextResponse.json(
-      { errorMessage: "Failed to fetch FCM token." },
-      { status: 200 }
-    );
-  }
-}
 
 export async function POST(req: NextRequest) {
   try {
