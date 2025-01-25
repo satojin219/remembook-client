@@ -35,17 +35,14 @@ const sendQuestion = async (
 ) => {
   const { userId, bookId, summaryId, body, delay } = payload;
 
-  await tasks
-    .trigger<typeof sendQuestionTask>(
-      "send-question-task",
-      {
-        userId,
-        bookId,
-        summaryId,
-        body,
-      },
-      { delay: `${24 * delay}h` }
-    )
-    .then((res) => console.log("Task response", res))
-    .catch((err) => console.error("Task error", err));
+  await tasks.trigger<typeof sendQuestionTask>(
+    "send-question-task",
+    {
+      userId,
+      bookId,
+      summaryId,
+      body,
+    },
+    { delay: `${24 * delay}h` }
+  );
 };
