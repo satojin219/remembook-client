@@ -34,9 +34,6 @@ const sendQuestion = (
   payload: Omit<SendQuestionPayload, "score"> & { delay: number }
 ) => {
   const { userId, bookId, summaryId, body, delay } = payload;
-  const delayDate = new Date(
-    Date.now() + 24 * delay * 60 * 60 * 1000
-  ).toISOString();
   tasks.trigger<typeof sendQuestionTask>(
     "send-question-task",
     {
@@ -45,6 +42,6 @@ const sendQuestion = (
       summaryId,
       body,
     },
-    // { delay: delayDate }
-  ).then((res) => console.log("send-question-task",res)).catch((err) => console.error("send question task error",err));
+    { delay: `${1 * delay}m` }
+  );
 };
