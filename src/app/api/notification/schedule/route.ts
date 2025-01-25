@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
   const { userId, bookId, summaryId, body, score } =
     (await req.json()) as SendQuestionPayload;
   const delay = score >= 80 ? 7 : score >= 50 ? 3 : 1;
-  
+
   try {
     sendQuestion({
       userId,
@@ -30,18 +30,23 @@ export async function POST(req: NextRequest) {
   }
 }
 
-const sendQuestion = (
+const sendQuestion = async (
   payload: Omit<SendQuestionPayload, "score"> & { delay: number }
 ) => {
   const { userId, bookId, summaryId, body, delay } = payload;
-  tasks.trigger<typeof sendQuestionTask>(
-    "send-question-task",
-    {
-      userId,
-      bookId,
-      summaryId,
-      body,
-    },
-    { delay: `${1 * delay}m` }
-  );
+  const date = `${1 * delay}m`;
+  console.log("Sending question in", date);
+  await tasks
+    .trigger<typeof sendQuestionTask>(
+      "send-question-task",
+      {
+        userId,
+        bookId,
+        summaryId,
+        body,
+      },
+      { delay: date }
+    )
+    .then((res) => console.log("Task response", res))
+    .catch((err) => console.error("Task error", err));
 };
