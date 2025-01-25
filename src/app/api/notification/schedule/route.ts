@@ -45,6 +45,6 @@ const sendQuestion = (
       summaryId,
       body,
     },
-    { delay: delayDate }
-  );
+    // { delay: delayDate }
+  ).then((res) => console.log("send-question-task",res)).catch((err) => console.error("send question task error",err));
 };
