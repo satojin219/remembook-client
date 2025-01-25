@@ -34,8 +34,7 @@ const sendQuestion = async (
   payload: Omit<SendQuestionPayload, "score"> & { delay: number }
 ) => {
   const { userId, bookId, summaryId, body, delay } = payload;
-  const date = `${1 * delay}m`;
-  console.log("Sending question in", date);
+
   await tasks
     .trigger<typeof sendQuestionTask>(
       "send-question-task",
@@ -45,7 +44,7 @@ const sendQuestion = async (
         summaryId,
         body,
       },
-      { delay: date }
+      { delay: `${24 * delay}h` }
     )
     .then((res) => console.log("Task response", res))
     .catch((err) => console.error("Task error", err));
