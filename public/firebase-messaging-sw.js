@@ -1,7 +1,6 @@
 
-
 self.addEventListener("notificationclick", (event) => {
-  console.log("click", event.notification.data.url);
+
   event.notification.close();
   const urlToOpen = event.notification.data.url;
   event.waitUntil(
@@ -42,7 +41,6 @@ self.addEventListener('push', (event) => {
   if (event.data) {
     data = event.data.json();
   }
-  console.log('Received a push message', data);
   const title = data.notification.title;
   const message = data.notification.body;
   const link = data.notification.click_action;
