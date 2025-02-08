@@ -10,11 +10,11 @@ import type { APIResponse } from "@/types/common";
 export type AnswerResponse = {
   score: number;
   userAnswer: string;
-  summary: string;
+  memo: string;
 };
 
 type Identifiers = {
-  summaryId: string;
+  memoId: string;
   questionId: string;
 };
 
@@ -39,7 +39,7 @@ export async function answerQuestion(
 
   try {
     const result = await fetch(
-      `${process.env.REMEMBOOK_API_URL}/api/v1/summary/${identifiers.summaryId}/answer/${identifiers.questionId}`,
+      `${process.env.REMEMBOOK_API_URL}/api/v1/memo/${identifiers.memoId}/answer/${identifiers.questionId}`,
       {
         method: "POST",
         headers: {

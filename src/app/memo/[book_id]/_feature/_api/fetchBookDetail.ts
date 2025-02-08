@@ -1,16 +1,20 @@
 "use server";
 
-import type { SummariedBookItem } from "@/types/book";
 import type { APIResponse } from "@/types/common";
+import type { Question } from "@/types/question";
 import { cookies } from "next/headers";
 
-export type FetchSummariedBookResponse = {
-  books: SummariedBookItem[];
+export type FetchBookDetailResponse = {
+  book: {
+    id: string;
+    googleBooksId: string;
+  };
+  questions: Question[];
 };
 
-export const fetchSummariedBookList = async (): Promise<
-  APIResponse<FetchSummariedBookResponse>
-> => {
+export const fetchBookDetail = async (
+  bookId: string
+): Promise<APIResponse<FetchBookDetailResponse>> => {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken");
   if (!accessToken) {
@@ -18,7 +22,7 @@ export const fetchSummariedBookList = async (): Promise<
   }
   try {
     const response = await fetch(
-      `${process.env.REMEMBOOK_API_URL}/api/v1/books`,
+      `${process.env.REMEMBOOK_API_URL}/api/v1/books/${bookId}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -28,8 +32,9 @@ export const fetchSummariedBookList = async (): Promise<
       }
     );
 
-    const summaries = (await response.json()) as FetchSummariedBookResponse;
-    return { ok: true, data: summaries };
+    const summary = (await response.json()) as FetchBookDetailResponse;
+
+    return { ok: true, data: summary };
   } catch (error) {
     console.error("Get summaries failed:", error);
     return { ok: false, errorMessage: "要約の取得に失敗しました。" };

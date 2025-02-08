@@ -20,7 +20,7 @@ type Props = {
   scheduleNotification: (
     userId: string,
     bookId: string,
-    summaryId: string,
+    memoId: string,
     body: string,
     score: number
   ) => Promise<APIResponse<void>>;
@@ -69,7 +69,7 @@ export const QuestionPresentational: FC<Props> = ({
       {lastResult.ok && lastResult.data && (
         <>
           <h2>{lastResult.data.score}点</h2>
-          <p>要約： {lastResult.data.summary}</p>
+          <p>メモ： {lastResult.data.memo}</p>
           <p>あなたの回答： {lastResult.data.userAnswer}</p>
           <button type="button" onClick={enablePushNotification}>
             push通知を有効にす
@@ -80,7 +80,7 @@ export const QuestionPresentational: FC<Props> = ({
               scheduleNotification(
                 userId,
                 book_id as string,
-                question.summaryId,
+                question.memoId,
                 question.body,
                 lastResult.data?.score || 0
               );

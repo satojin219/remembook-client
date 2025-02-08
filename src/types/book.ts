@@ -9,7 +9,7 @@ export type Book = {
   linkSrc: string;
 };
 
-export type SummariedBookItem = {
+export type NotedBookItem = {
   id: string;
   title: string;
   author: string[];
