@@ -1,3 +1,5 @@
+"use client";
+
 import type { APIResponse } from "@/types/common";
 import { useParams } from "next/navigation";
 import { type FC, useEffect, useState } from "react";

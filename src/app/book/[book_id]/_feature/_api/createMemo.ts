@@ -3,29 +3,29 @@
 import { parseWithZod } from "@conform-to/zod";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { createSummarySchema } from "../_schema";
+import { createMemoSchema } from "../_schema";
 import type { Book } from "@/types/book";
 
-export async function createSummary(
+export async function createMemo(
   book: Book,
   _prevState: unknown,
   formData: FormData
 ) {
   const submission = parseWithZod(formData, {
-    schema: createSummarySchema,
+    schema: createMemoSchema,
   });
   if (submission.status !== "success") {
     return submission.reply();
   }
 
-  const summary = formData.get("summary");
+  const memo = formData.get("memo");
 
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken");
   if (!accessToken) {
     return redirect("/login");
   }
-  await fetch(`${process.env.REMEMBOOK_API_URL}/api/v1/summary`, {
+  await fetch(`${process.env.REMEMBOOK_API_URL}/api/v1/memo`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export async function createSummary(
       credentials: "include",
     },
     body: JSON.stringify({
-      body: summary,
+      body: memo,
       title: book.title,
       author: book.authors,
       imageUrl: book.imageSrc,
@@ -43,5 +43,5 @@ export async function createSummary(
     console.error(e);
   });
 
-  return redirect("/summary");
+  return redirect("/memo");
 }

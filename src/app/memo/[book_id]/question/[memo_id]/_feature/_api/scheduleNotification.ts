@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 export const scheduleNotification = async (
   userId: string,
   bookId: string,
-  summaryId: string,
+  memoId: string,
   body: string,
   score: number
 ): Promise<APIResponse<void>> => {
@@ -23,7 +23,7 @@ export const scheduleNotification = async (
       body: JSON.stringify({
         userId,
         bookId,
-        summaryId,
+        memoId,
         body,
         score,
       }),

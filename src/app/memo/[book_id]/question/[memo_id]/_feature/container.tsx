@@ -5,18 +5,18 @@ import { scheduleNotification } from "./_api/scheduleNotification";
 import { cookies } from "next/headers";
 
 type Props = {
-  summaryId: string;
+  memoId: string;
 };
 
-export const QuestionContainer: FC<Props> = async ({ summaryId }) => {
-  const question = await fetchQuestion(summaryId);
+export const QuestionContainer: FC<Props> = async ({ memoId }) => {
+  const question = await fetchQuestion(memoId);
 
   if (!question.data) {
     return null;
   }
   const answerQuestionWithIds = answerQuestion.bind(null, {
     questionId: question.data.id,
-    summaryId,
+    memoId,
   });
   const cookieStore = await cookies();
   const userId = cookieStore.get("userId")?.value;

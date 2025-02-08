@@ -1,0 +1,1 @@
+export { fetchBookDetail } from "./fetchBookDetail";

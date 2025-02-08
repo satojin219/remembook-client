@@ -1,5 +1,5 @@
 import Link from "next/link";
 
-export const SummariesPresentational = async () => {
+export const NotedPresentational = async () => {
   return <Link href="/book">本を探す</Link>;
 };

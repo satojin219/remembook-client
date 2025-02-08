@@ -5,14 +5,14 @@ import { NextResponse } from "next/server";
 type Payload = {
   userId: string;
   bookId: string;
-  summaryId: string;
+  memoId: string;
   body: string;
 };
 
 export const sendQuestionTask = task({
   id: "send-question-task",
   run: async (payload: Payload) => {
-    const { userId, bookId, summaryId, body } = payload;
+    const { userId, bookId, memoId, body } = payload;
 
     const userRef = adminDatabase.ref(`users/${userId}`);
     const snapshot = await userRef
@@ -24,7 +24,7 @@ export const sendQuestionTask = task({
     if (!fcmToken) {
       throw new Error("FCM token not found for the user.");
     }
-    
+
     adminMessage.send({
       webpush: {
         notification: {
@@ -32,7 +32,7 @@ export const sendQuestionTask = task({
           body: body,
         },
         fcmOptions: {
-          link: `${process.env.NEXT_PUBLIC_API_BASE_URL}/summary/${bookId}/question/${summaryId}`,
+          link: `${process.env.NEXT_PUBLIC_API_BASE_URL}/memo/${bookId}/question/${memoId}`,
         },
       },
       token: fcmToken,

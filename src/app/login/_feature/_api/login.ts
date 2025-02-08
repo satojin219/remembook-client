@@ -36,5 +36,5 @@ export async function login(prevState: unknown, formData: FormData) {
       });
     });
 
-  return redirect("/summary");
+  return redirect("/memo");
 }
