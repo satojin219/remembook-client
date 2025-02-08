@@ -1,18 +1,18 @@
 "use server";
 
-import type { SummariedBookItem } from "@/types/book";
+import type { NotedBookItem } from "@/types/book";
 import Link from "next/link";
 import type { FC } from "react";
 
 type Props = {
-  books: SummariedBookItem[];
+  books: NotedBookItem[];
 };
 
-export const SummariedBookList: FC<Props> = async ({ books }) => {
+export const NotedBookList: FC<Props> = async ({ books }) => {
   return (
     <>
       {books.map((book) => (
-        <Link key={book.id} href={`/summary/${book.id}`}>
+        <Link key={book.id} href={`/memo/${book.id}`}>
           <div key={book.id}>
             <h2>{book.title}</h2>
             <p>{book.author.join(", ")}</p>

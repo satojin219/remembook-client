@@ -3,34 +3,31 @@
 import { type FC, useActionState } from "react";
 import { type SubmissionResult, useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
-import { createSummarySchema } from "./_schema";
+import { createMemoSchema } from "./_schema";
 import type { Book } from "@/types/book";
 
 type Props = {
   book: Book | undefined;
-  createSummary: (
+  createMemo: (
     book: Book,
     _prevState: unknown,
     formData: FormData
   ) => Promise<SubmissionResult<string[]>>;
 };
 
-export const BookDetailPresentational: FC<Props> = ({
-  book,
-  createSummary,
-}) => {
+export const BookDetailPresentational: FC<Props> = ({ book, createMemo }) => {
   if (!book) {
     return null;
   }
-  const createSummaryWithBookId = createSummary.bind(null, book);
+  const createMemoWithBookId = createMemo.bind(null, book);
   const [lastResult, action, isPending] = useActionState(
-    createSummaryWithBookId,
+    createMemoWithBookId,
     null
   );
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {
-      return parseWithZod(formData, { schema: createSummarySchema });
+      return parseWithZod(formData, { schema: createMemoSchema });
     },
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
@@ -39,12 +36,12 @@ export const BookDetailPresentational: FC<Props> = ({
   return (
     <form action={action}>
       <textarea
-        key={fields.summary.key}
-        name={fields.summary.name}
-        value={fields.summary.value}
+        key={fields.memo.key}
+        name={fields.memo.name}
+        value={fields.memo.value}
       />
       <button type="submit" disabled={isPending}>
-        {isPending ? "要約を作成中..." : "要約を作成"}
+        {isPending ? "メモを作成中..." : "メモを作成"}
       </button>
     </form>
   );

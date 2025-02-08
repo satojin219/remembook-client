@@ -14,7 +14,7 @@ export const QuestionList: FC<Props> = async ({ bookId,questions }) => {
     <>
       {questions.map((question, index) => {
         return (
-          <Link key={question.id} href={`/summary/${bookId}/question/${question.summaryId}`}>
+          <Link key={question.id} href={`/memo/${bookId}/question/${question.memoId}`}>
             {question.body}
           </Link>
         );

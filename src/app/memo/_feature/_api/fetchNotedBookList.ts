@@ -1,12 +1,16 @@
 "use server";
 
+import type { NotedBookItem } from "@/types/book";
 import type { APIResponse } from "@/types/common";
-import type { Question } from "@/types/question";
 import { cookies } from "next/headers";
 
-export const fetchQuestion = async (
-  summaryId: string
-): Promise<APIResponse<Question>> => {
+export type FetchNotedBookResponse = {
+  books: NotedBookItem[];
+};
+
+export const fetchNotedBookList = async (): Promise<
+  APIResponse<FetchNotedBookResponse>
+> => {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken");
   if (!accessToken) {
@@ -14,7 +18,7 @@ export const fetchQuestion = async (
   }
   try {
     const response = await fetch(
-      `${process.env.REMEMBOOK_API_URL}/api/v1/summary/${summaryId}/question`,
+      `${process.env.REMEMBOOK_API_URL}/api/v1/books`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -24,11 +28,10 @@ export const fetchQuestion = async (
       }
     );
 
-    const question = (await response.json()) as Question;
-
-    return { ok: true, data: question };
+    const notes = (await response.json()) as FetchNotedBookResponse;
+    return { ok: true, data: notes };
   } catch (error) {
-    console.error("Get question failed:", error);
-    return { ok: false, errorMessage: "質問の取得に失敗しました。" };
+    console.error("Get notes failed:", error);
+    return { ok: false, errorMessage: "ノートの取得に失敗しました。" };
   }
 };

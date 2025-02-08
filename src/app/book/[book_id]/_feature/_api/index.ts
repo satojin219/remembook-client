@@ -1,1 +1,1 @@
-export { createSummary } from "./createSummary";
+export { createMemo } from "./createMemo";

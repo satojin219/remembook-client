@@ -5,13 +5,13 @@ import { NextResponse, type NextRequest } from "next/server";
 type SendQuestionPayload = {
   userId: string;
   bookId: string;
-  summaryId: string;
+  memoId: string;
   body: string;
   score: number;
 };
 
 export async function POST(req: NextRequest) {
-  const { userId, bookId, summaryId, body, score } =
+  const { userId, bookId, memoId, body, score } =
     (await req.json()) as SendQuestionPayload;
   const delay = score >= 80 ? 7 : score >= 50 ? 3 : 1;
 
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     sendQuestion({
       userId,
       bookId,
-      summaryId,
+      memoId,
       body,
       delay,
     });
@@ -33,14 +33,14 @@ export async function POST(req: NextRequest) {
 const sendQuestion = async (
   payload: Omit<SendQuestionPayload, "score"> & { delay: number }
 ) => {
-  const { userId, bookId, summaryId, body, delay } = payload;
+  const { userId, bookId, memoId, body, delay } = payload;
 
   await tasks.trigger<typeof sendQuestionTask>(
     "send-question-task",
     {
       userId,
       bookId,
-      summaryId,
+      memoId,
       body,
     },
     { delay: `${24 * delay}h` }
