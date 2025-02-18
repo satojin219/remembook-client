@@ -1,12 +1,12 @@
 import { ChargeContainer } from "./_feature/container";
 
-const Page = ({
+const Page = async ({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | undefined };
+  searchParams: Promise<{ session_id?: string }>;
 }) => {
-  const sessionId =
-    searchParams.session_id?.replace(/[^a-zA-Z0-9_]/g, "") ?? "";
+  const params = await searchParams;
+  const sessionId = params.session_id?.replace(/[^a-zA-Z0-9_]/g, "") ?? "";
 
   return <ChargeContainer sessionId={sessionId} />;
 };
