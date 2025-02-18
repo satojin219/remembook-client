@@ -28,8 +28,8 @@ export async function POST(req: NextRequest) {
         },
       ],
       mode: "payment",
-      success_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/success`,
-      cancel_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/billing`,
+      success_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/charge?session_id={CHECKOUT_SESSION_ID}",`,
+      cancel_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/charge`,
     });
 
     return NextResponse.json({ url: session.url }, { status: 200 });
