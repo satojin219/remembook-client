@@ -1,5 +1,6 @@
 "use server";
 
+import { type ErrorType, getErrorMessage } from "@/lib/error";
 import type { NotedBookItem } from "@/types/book";
 import type { APIResponse } from "@/types/common";
 import { cookies } from "next/headers";
@@ -17,21 +18,25 @@ export const fetchNotedBookList = async (): Promise<
     return { ok: false, errorMessage: "ログインしてください。" };
   }
   try {
-    const response = await fetch(
-      `${process.env.REMEMBOOK_API_URL}/api/v1/books`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken.value}`,
-          credentials: "include",
-        },
-      }
-    );
+    const res = await fetch(`${process.env.REMEMBOOK_API_URL}/api/v1/books`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken.value}`,
+        credentials: "include",
+      },
+    });
 
-    const notes = (await response.json()) as FetchNotedBookResponse;
+    if (!res.ok) {
+      const errorResponse = (await res.json()) as ErrorType;
+      throw errorResponse;
+    }
+
+    const notes = (await res.json()) as FetchNotedBookResponse;
     return { ok: true, data: notes };
-  } catch (error) {
-    console.error("Get notes failed:", error);
-    return { ok: false, errorMessage: "ノートの取得に失敗しました。" };
+  } catch (e) {
+    return {
+      ok: false,
+      errorMessage: getErrorMessage((e as ErrorType).error.code),
+    };
   }
 };

@@ -1,5 +1,6 @@
 "use server";
 
+import { type ErrorType, getErrorMessage } from "@/lib/error";
 import type { APIResponse } from "@/types/common";
 import type { Question } from "@/types/question";
 import { cookies } from "next/headers";
@@ -21,7 +22,7 @@ export const fetchBookDetail = async (
     return { ok: false, errorMessage: "ログインしてください。" };
   }
   try {
-    const response = await fetch(
+    const res = await fetch(
       `${process.env.REMEMBOOK_API_URL}/api/v1/books/${bookId}`,
       {
         headers: {
@@ -32,11 +33,17 @@ export const fetchBookDetail = async (
       }
     );
 
-    const summary = (await response.json()) as FetchBookDetailResponse;
+    if (!res.ok) {
+      const errorResponse = (await res.json()) as ErrorType;
+      throw errorResponse;
+    }
+    const summary = (await res.json()) as FetchBookDetailResponse;
 
     return { ok: true, data: summary };
-  } catch (error) {
-    console.error("Get summaries failed:", error);
-    return { ok: false, errorMessage: "要約の取得に失敗しました。" };
+  } catch (e) {
+    return {
+      ok: false,
+      errorMessage: getErrorMessage((e as ErrorType).error.code),
+    };
   }
 };

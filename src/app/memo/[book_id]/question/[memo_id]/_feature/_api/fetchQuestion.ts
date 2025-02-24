@@ -1,5 +1,6 @@
 "use server";
 
+import { type ErrorType, getErrorMessage } from "@/lib/error";
 import type { APIResponse } from "@/types/common";
 import type { Question } from "@/types/question";
 import { cookies } from "next/headers";
@@ -13,7 +14,7 @@ export const fetchQuestion = async (
     return { ok: false, errorMessage: "ログインしてください。" };
   }
   try {
-    const response = await fetch(
+    const res = await fetch(
       `${process.env.REMEMBOOK_API_URL}/api/v1/memo/${memoId}/question`,
       {
         headers: {
@@ -23,12 +24,17 @@ export const fetchQuestion = async (
         },
       }
     );
-
-    const question = (await response.json()) as Question;
+    if (!res.ok) {
+      const errorResponse = (await res.json()) as ErrorType;
+      throw errorResponse;
+    }
+    const question = (await res.json()) as Question;
 
     return { ok: true, data: question };
-  } catch (error) {
-    console.error("Get question failed:", error);
-    return { ok: false, errorMessage: "質問の取得に失敗しました。" };
+  } catch (e) {
+    return {
+      ok: false,
+      errorMessage: getErrorMessage((e as ErrorType).error.code),
+    };
   }
 };

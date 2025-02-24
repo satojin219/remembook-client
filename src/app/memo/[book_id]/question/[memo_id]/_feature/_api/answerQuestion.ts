@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { answerSchema } from "../_schema";
 import type { APIResponse } from "@/types/common";
+import { type ErrorType, getErrorMessage } from "@/lib/error";
 
 export type AnswerResponse = {
   score: number;
@@ -38,7 +39,7 @@ export async function answerQuestion(
   }
 
   try {
-    const result = await fetch(
+    const res = await fetch(
       `${process.env.REMEMBOOK_API_URL}/api/v1/memo/${identifiers.memoId}/answer/${identifiers.questionId}`,
       {
         method: "POST",
@@ -52,11 +53,16 @@ export async function answerQuestion(
         }),
       }
     );
-
-    const answer = (await result.json()) as AnswerResponse;
+    if (!res.ok) {
+      const errorResponse = (await res.json()) as ErrorType;
+      throw errorResponse;
+    }
+    const answer = (await res.json()) as AnswerResponse;
     return { ok: true, data: answer };
-  } catch (error) {
-    console.error("Answer failed:", error);
-    return { ok: false, errorMessage: "回答に失敗しました。" };
+  } catch (e) {
+    return {
+      ok: false,
+      errorMessage: getErrorMessage((e as ErrorType).error.code),
+    };
   }
 }

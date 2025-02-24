@@ -1,5 +1,6 @@
 "use server";
 
+import { type ErrorType, getErrorMessage } from "@/lib/error";
 import type { APIResponse } from "@/types/common";
 import { cookies } from "next/headers";
 
@@ -15,21 +16,29 @@ export const createCheckoutLink = async (
   if (!userId) {
     return { ok: false, errorMessage: "Unauthorized" };
   }
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/stripe/createCheckoutSession`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ amount, userId: userId.value }),
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/stripe/createCheckoutSession`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount, userId: userId.value }),
+      }
+    );
+    if (!res.ok) {
+      const errorResponse = (await res.json()) as ErrorType;
+      throw errorResponse;
     }
-  ).then((res) => res.json() as unknown as CreateCheckoutLinkResponse);
-
-  console.log("response", response);
-
-  return {
-    ok: true,
-    data: response,
-  };
+    return {
+      ok: true,
+      data: res.json() as unknown as CreateCheckoutLinkResponse,
+    };
+  } catch (e) {
+    return {
+      ok: false,
+      errorMessage: getErrorMessage((e as ErrorType).error.code),
+    };
+  }
 };
