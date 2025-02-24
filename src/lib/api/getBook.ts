@@ -1,20 +1,25 @@
 import type { Book } from "@/types/book";
 import type { APIResponse } from "@/types/common";
+import { type ErrorType, getErrorMessage } from "../error";
 
 export async function getBook(bookId: string): Promise<APIResponse<Book>> {
   try {
-    const response = await fetch(
+    const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/book/${bookId}`
     );
 
-    if (!response.ok) {
-      throw new Error("サーバーエラーにより本の取得に失敗しました。");
+    if (!res.ok) {
+      const errorResponse = (await res.json()) as ErrorType;
+      throw errorResponse;
     }
 
-    const book = (await response.json()) as Book;
+    const book = (await res.json()) as Book;
 
     return { ok: true, data: book };
-  } catch (error) {
-    return { ok: false, errorMessage: "本の取得に失敗しました。" };
+  } catch (e) {
+    return {
+      ok: false,
+      errorMessage: getErrorMessage((e as ErrorType).error.code),
+    };
   }
 }
