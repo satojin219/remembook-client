@@ -5,14 +5,14 @@ import { Suspense } from "react";
 import { BookDetailPresentational } from "./presentational";
 import { BookInfo } from "@/components/BookInfo";
 import { createMemo } from "./_api";
-import { fetchBook } from "@/lib";
+import { getBook } from "@/lib/api";
 
 type Props = {
   bookId: string;
 };
 
 export const BookDetailContainer: React.FC<Props> = async ({ bookId }) => {
-  const book = await fetchBook(bookId);
+  const book = await getBook(bookId);
 
   return (
     <div>
