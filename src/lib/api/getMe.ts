@@ -4,7 +4,7 @@ import type { User } from "@/types/user";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
-export async function getBook(bookId: string): Promise<APIResponse<User>> {
+export async function getMe(): Promise<APIResponse<User>> {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken");
   if (!accessToken) {
@@ -13,7 +13,6 @@ export async function getBook(bookId: string): Promise<APIResponse<User>> {
 
   try {
     const res = await fetch(`${process.env.REMEMBOOK_API_URL}/api/v1/user/me`, {
-      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken.value}`,
