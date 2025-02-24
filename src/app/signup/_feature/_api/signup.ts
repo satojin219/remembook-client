@@ -47,10 +47,10 @@ export async function signup(_prevState: unknown, formData: FormData) {
     cookieStore.set("userId", user.userId, {
       maxAge: 24 * 24 * 60 * 60,
     });
-    return redirect("/memo");
   } catch (e) {
     return submission.reply({
       formErrors: [getErrorMessage((e as ErrorType).error.code)],
     });
   }
+  redirect("/memo");
 }

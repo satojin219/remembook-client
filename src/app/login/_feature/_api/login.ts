@@ -33,22 +33,26 @@ export async function login(prevState: unknown, formData: FormData) {
         password,
       }),
     });
-    if (!res.ok) {
-      const errorResponse = (await res.json()) as ErrorType;
-      throw errorResponse;
+    const data = (await res.json()) as LoginResponse | ErrorType;
+    if ("error" in data) {
+      throw data;
     }
-    const user = (await res.json()) as LoginResponse;
 
-    cookieStore.set("accessToken", user.accessToken, {
+    cookieStore.set("accessToken", data.accessToken, {
       maxAge: 24 * 24 * 60 * 60,
     });
-    cookieStore.set("userId", user.userId, {
+    cookieStore.set("userId", data.userId, {
       maxAge: 24 * 24 * 60 * 60,
     });
-    return redirect("/memo");
   } catch (e) {
+    console.log(e);
     return submission.reply({
       formErrors: [getErrorMessage((e as ErrorType).error.code)],
     });
   }
+  //**
+  // @note try-catch内にredirectを書くとエラーが発生するので、外のブロックで実行する
+  // @link https://nextjs.org/docs/app/building-your-application/routing/redirecting#:~:text=redirect%20internally%20throws%20an%20error%20so%20it%20should%20be%20called%20outside%20of%20try/catch%20blocks.
+  //  */
+  redirect("/memo");
 }

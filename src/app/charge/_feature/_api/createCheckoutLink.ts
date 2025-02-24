@@ -27,13 +27,16 @@ export const createCheckoutLink = async (
         body: JSON.stringify({ amount, userId: userId.value }),
       }
     );
+
     if (!res.ok) {
       const errorResponse = (await res.json()) as ErrorType;
       throw errorResponse;
     }
+    const link = (await res.json()) as unknown as CreateCheckoutLinkResponse;
+
     return {
       ok: true,
-      data: res.json() as unknown as CreateCheckoutLinkResponse,
+      data: link,
     };
   } catch (e) {
     return {
