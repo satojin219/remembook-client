@@ -3,6 +3,7 @@
 import { type ErrorType, getErrorMessage } from "@/lib/error";
 import type { APIResponse } from "@/types/common";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export const addCoin = async (
   amount: number,
@@ -28,10 +29,19 @@ export const addCoin = async (
       }
     );
 
-    if (!res.ok) {
-      const errorResponse = (await res.json()) as ErrorType;
-      throw errorResponse;
-    }
+    // if (!res.ok) {
+    //   const errorResponse = (await res.json()) as ErrorType;
+    //   throw errorResponse;
+    // }
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/revalidate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tag: "getMe",
+      }),
+    });
 
     return { ok: true };
   } catch (e) {

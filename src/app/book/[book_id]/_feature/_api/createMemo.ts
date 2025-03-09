@@ -46,10 +46,10 @@ export async function createMemo(
       const errorResponse = (await res.json()) as ErrorType;
       throw errorResponse;
     }
-    return redirect("/memo");
   } catch (e) {
     return submission.reply({
       formErrors: [getErrorMessage((e as ErrorType).error.code)],
     });
   }
+  redirect("/memo");
 }

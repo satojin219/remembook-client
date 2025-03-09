@@ -18,7 +18,7 @@ export async function getMe(): Promise<APIResponse<User>> {
         Authorization: `Bearer ${accessToken.value}`,
         credentials: "include",
       },
-      cache: "no-cache",
+      cache: "no-store"
     });
     if (!res.ok) {
       const errorResponse = (await res.json()) as ErrorType;
