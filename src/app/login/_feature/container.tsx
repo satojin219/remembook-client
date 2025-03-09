@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { LoginPresentational } from "./presentational";
 
 export type Parameter = {
@@ -10,7 +9,6 @@ export const LgoinContainer = () => {
   return (
     <>
       <LoginPresentational />
-      <Link href="/signup">新規登録画面へ</Link>
     </>
   );
 };

@@ -5,7 +5,6 @@ export const SignupContainer = () => {
   return (
     <>
       <SignupPresentational />
-      <Link href="/login">ログイン画面へ</Link>
     </>
   );
 };
