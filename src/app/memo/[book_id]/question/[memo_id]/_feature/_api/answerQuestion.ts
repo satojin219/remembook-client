@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { answerSchema } from "../_schema";
 import type { APIResponse } from "@/types/common";
 import { type ErrorType, getErrorMessage } from "@/lib/error";
+import { revalidateTag } from "next/cache";
 
 export type AnswerResponse = {
   score: number;
@@ -58,6 +59,10 @@ export async function answerQuestion(
       throw errorResponse;
     }
     const answer = (await res.json()) as AnswerResponse;
+
+    // @note: getMeのキャッシュを更新し、コインを更新
+    revalidateTag("getMe");
+
     return { ok: true, data: answer };
   } catch (e) {
     return {

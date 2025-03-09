@@ -2,7 +2,6 @@
 
 import { type FC, Suspense } from "react";
 import { fetchBookDetail } from "./_api";
-
 import { BookInfo } from "@/components";
 import { QuestionList } from "./_components";
 import { getBook } from "@/lib/api";
@@ -14,17 +13,35 @@ type Props = {
 export const MemoContainer: FC<Props> = async ({ bookId }) => {
   const memo = await fetchBookDetail(bookId);
   const book = await getBook(memo.data?.book.googleBooksId || "");
+
   return (
-    <>
-      <Suspense fallback={<p>読み込み中...</p>}>
-        <BookInfo book={book.data} />
-      </Suspense>
-      <Suspense fallback={<p>読み込み中...</p>}>
-        <QuestionList
-          bookId={book.data?.id || ""}
-          questions={memo.data?.questions || []}
-        />
-      </Suspense>
-    </>
+    <div className="container mx-auto px-4 py-8">
+      <div className="max-w-4xl mx-auto space-y-8">
+        <Suspense
+          fallback={
+            <div className="text-center py-12">
+              <div className="animate-spin h-8 w-8 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-4" />
+              <p className="text-gray-600">本の情報を読み込み中...</p>
+            </div>
+          }>
+          <BookInfo book={book.data} />
+        </Suspense>
+
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <Suspense
+            fallback={
+              <div className="text-center py-8">
+                <div className="animate-spin h-6 w-6 border-3 border-blue-500 border-t-transparent rounded-full mx-auto mb-3" />
+                <p className="text-gray-600">メモを読み込み中...</p>
+              </div>
+            }>
+            <QuestionList
+              bookId={book.data?.id || ""}
+              questions={memo.data?.questions || []}
+            />
+          </Suspense>
+        </div>
+      </div>
+    </div>
   );
 };
