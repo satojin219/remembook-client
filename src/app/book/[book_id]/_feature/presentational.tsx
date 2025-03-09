@@ -41,7 +41,6 @@ export const BookDetailPresentational: FC<Props> = ({ book, createMemo }) => {
           <textarea
             key={fields.memo.key}
             name={fields.memo.name}
-            value={fields.memo.value ?? ""}
             placeholder="本に関するメモを入力してください..."
             className="w-full h-32 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-y"
             disabled={isPending}

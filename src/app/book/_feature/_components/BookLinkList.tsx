@@ -29,10 +29,10 @@ export const BookLinkList: FC<Props> = ({ books }) => {
               <Image
                 src={book.imageSrc}
                 alt=""
-                width={180}
-                height={260}
-                className="object-contain w-auto h-full group-hover:scale-105 transition-transform duration-300"
-                sizes="180px"
+                width={120}
+                height={174}
+                className="object-contain w-auto h-[174px] group-hover:scale-105 transition-transform duration-300"
+                sizes="120px"
               />
             </div>
           </div>
