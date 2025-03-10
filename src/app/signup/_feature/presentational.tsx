@@ -103,7 +103,11 @@ export const SignupPresentational: FC = () => {
               )}
             </Field>
           </div>
-
+          {lastResult?.error && (
+            <p className="text-red-500 text-xs" role="alert">
+              {lastResult?.error?.[""]?.[0]}
+            </p>
+          )}
           <Button
             type="submit"
             disabled={isPending}
