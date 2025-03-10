@@ -45,7 +45,6 @@ export async function login(prevState: unknown, formData: FormData) {
       maxAge: 24 * 24 * 60 * 60,
     });
   } catch (e) {
-    console.log(e);
     return submission.reply({
       formErrors: [getErrorMessage((e as ErrorType).error.code)],
     });
