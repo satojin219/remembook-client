@@ -8,6 +8,7 @@ import { useForm } from "@conform-to/react";
 import { login } from "./_api";
 import Image from "next/image";
 import Link from "next/link";
+import { PolicyDialog } from "@/components/PolicyDialog";
 
 export const LoginPresentational: FC = () => {
   const [lastResult, action, isPending] = useActionState(login, undefined);
@@ -41,6 +42,21 @@ export const LoginPresentational: FC = () => {
               className="font-medium text-blue-600 hover:text-blue-500">
               新規登録はこちら
             </Link>
+          </p>
+          <p className="text-sm text-gray-600 text-center">
+            ログインすることで、
+            <PolicyDialog
+              label="利用規約"
+              initialTab="terms"
+              buttonClassName="text-blue-600 hover:text-blue-500"
+            />
+            と
+            <PolicyDialog
+              label="プライバシーポリシー"
+              initialTab="privacy"
+              buttonClassName="text-blue-600 hover:text-blue-500"
+            />
+            に同意したものとみなされます
           </p>
         </div>
 

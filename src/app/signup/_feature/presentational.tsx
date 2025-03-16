@@ -8,6 +8,8 @@ import { signup } from "./_api";
 import { signupSchema } from "./_schema";
 import Image from "next/image";
 import Link from "next/link";
+import { PolicyDialog } from "@/components/PolicyDialog";
+import { useState } from "react";
 
 export const SignupPresentational: FC = () => {
   const [lastResult, action, isPending] = useActionState(signup, undefined);
@@ -19,6 +21,9 @@ export const SignupPresentational: FC = () => {
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
   });
+  const [policyType, setPolicyType] = useState<
+    "terms" | "privacy" | "transaction" | null
+  >(null);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -35,7 +40,7 @@ export const SignupPresentational: FC = () => {
             新規アカウント作成
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            または{" "}
+            または
             <Link
               href="/login"
               className="font-medium text-blue-600 hover:text-blue-500">
@@ -108,6 +113,21 @@ export const SignupPresentational: FC = () => {
               {lastResult?.error?.[""]?.[0]}
             </p>
           )}
+          <p className="text-sm text-gray-600 text-center">
+            アカウントを作成することで、
+            <PolicyDialog
+              label="利用規約"
+              initialTab="terms"
+              buttonClassName="text-blue-600 hover:text-blue-500"
+            />
+            と
+            <PolicyDialog
+              label="プライバシーポリシー"
+              initialTab="privacy"
+              buttonClassName="text-blue-600 hover:text-blue-500"
+            />
+            に同意したものとみなされます
+          </p>
           <Button
             type="submit"
             disabled={isPending}
@@ -123,6 +143,11 @@ export const SignupPresentational: FC = () => {
           </Button>
         </form>
       </div>
+      <PolicyDialog
+        label="利用規約"
+        initialTab="terms"
+        buttonClassName="text-blue-600 hover:text-blue-500"
+      />
     </div>
   );
 };

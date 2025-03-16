@@ -4,6 +4,7 @@ import type { APIResponse } from "@/types/common";
 import type { FC } from "react";
 import { useState } from "react";
 import type { CreateCheckoutLinkResponse } from "./_api/createCheckoutLink";
+import { PolicyDialog } from "@/components/PolicyDialog";
 
 type Props = {
   createCheckoutLink: (
@@ -101,7 +102,10 @@ export const ChargePresentational: FC<Props> = ({ createCheckoutLink }) => {
 
       <div className="mt-6 text-center text-sm text-gray-600">
         <p>※ コインの購入は Stripe による安全な決済で処理されます</p>
-        <p>※ 購入したコインは即時反映されます</p>
+        <PolicyDialog
+          label="特定商取引法に基づく表示を確認する"
+          initialTab="transaction"
+        />
       </div>
     </div>
   );
