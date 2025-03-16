@@ -43,21 +43,6 @@ export const LoginPresentational: FC = () => {
               新規登録はこちら
             </Link>
           </p>
-          <p className="text-sm text-gray-600 text-center">
-            ログインすることで、
-            <PolicyDialog
-              label="利用規約"
-              initialTab="terms"
-              buttonClassName="text-blue-600 hover:text-blue-500"
-            />
-            と
-            <PolicyDialog
-              label="プライバシーポリシー"
-              initialTab="privacy"
-              buttonClassName="text-blue-600 hover:text-blue-500"
-            />
-            に同意したものとみなされます
-          </p>
         </div>
 
         <form action={action} className="mt-8 space-y-6">

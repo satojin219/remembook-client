@@ -143,11 +143,6 @@ export const SignupPresentational: FC = () => {
           </Button>
         </form>
       </div>
-      <PolicyDialog
-        label="利用規約"
-        initialTab="terms"
-        buttonClassName="text-blue-600 hover:text-blue-500"
-      />
     </div>
   );
 };
