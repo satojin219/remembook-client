@@ -23,7 +23,7 @@ export const Header = async () => {
         <Link
           href="/charge"
           className="flex items-center gap-2 bg-yellow-50 hover:bg-yellow-100 px-4 py-2 rounded-full transition-colors">
-          <Image src="/icons/coin.svg" alt="coin" width={24} height={24} />
+          <Image src="/coin.svg" alt="coin" width={24} height={24} />
           <span className="font-medium text-yellow-700">
             {user.data?.coins ?? 0} コイン
           </span>
