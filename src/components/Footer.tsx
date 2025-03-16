@@ -1,21 +1,11 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { FC } from "react";
 
 export const Footer: FC = () => {
   return (
     <footer className="bg-gray-50 border-t">
-      <div className="max-w-7xl mx-auto pt-2 px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center space-y-6 sm:flex-row sm:items-center sm:justify-around sm:space-y-0 py-4">
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/logo.svg"
-              alt="remembook"
-              width={160}
-              height={42}
-              className="h-10 w-auto"
-            />
-          </Link>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-center py-4">
           <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-6 text-sm text-center text-gray-600">
             <Link href="/about" className="hover:text-gray-900 hover:underline">
               remembookについて
