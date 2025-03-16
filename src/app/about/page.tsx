@@ -1,5 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "remembookの使い方 - AIで読書の理解を深める",
+  description:
+    "読書の理解度を高めるAI学習アプリ。要約作成、AI質問生成、スコアリング、最適なタイミングでの復習リマインドで、効率的な学習をサポートします。",
+  openGraph: {
+    title: "remembookの使い方 - AIで読書の理解を深める",
+    description:
+      "読書の理解度を高めるAI学習アプリ。要約作成、AI質問生成、スコアリング、最適なタイミングでの復習リマインドで、効率的な学習をサポートします。",
+    images: [{ url: "/about-hero.webp" }],
+    type: "website",
+    siteName: "remembook",
+    locale: "ja",
+    url: "https://remembook.app",
+  },
+};
 
 export default function AboutPage() {
   const features = [
