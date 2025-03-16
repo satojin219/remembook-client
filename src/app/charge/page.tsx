@@ -17,12 +17,9 @@ export const metadata: Metadata = {
 export default async function ChargePage({
   searchParams,
 }: {
-  searchParams: Promise<{ session_id?: string }>;
-}) => {
-  const params = await searchParams;
-  const sessionId = params.session_id?.replace(/[^a-zA-Z0-9_]/g, "") ?? "";
-
+  searchParams: { session_id?: string };
+}) {
+  const sessionId =
+    searchParams.session_id?.replace(/[^a-zA-Z0-9_]/g, "") ?? "";
   return <ChargeContainer sessionId={sessionId} />;
-};
-
-export default Page;
+}
