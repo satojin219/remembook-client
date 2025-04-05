@@ -1,3 +1,5 @@
+import "server-only";
+
 import { adminDatabase } from "@/lib/firebase/adminConfig";
 import { cookies } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";

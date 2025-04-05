@@ -1,3 +1,5 @@
+import "server-only";
+
 import type { Book } from "@/types/book";
 import type { GoogleBooksApiResponse } from "@/types/googleBook";
 
