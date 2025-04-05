@@ -40,9 +40,17 @@ export async function login(prevState: unknown, formData: FormData) {
 
     cookieStore.set("accessToken", data.accessToken, {
       maxAge: 24 * 24 * 60 * 60,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
     });
     cookieStore.set("userId", data.userId, {
       maxAge: 24 * 24 * 60 * 60,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
     });
   } catch (e) {
     return submission.reply({
