@@ -1,6 +1,5 @@
 "use server";
 
-import { getMe } from "@/lib/api/getMe";
 import Image from "next/image";
 import Link from "next/link";
 
