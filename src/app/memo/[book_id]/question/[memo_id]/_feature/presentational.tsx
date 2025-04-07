@@ -10,6 +10,7 @@ import { parseWithZod } from "@conform-to/zod";
 import { answerSchema } from "./_schema";
 import { enablePushNotification } from "@/serviceWorker/enablePushNotification";
 import { useParams } from "next/navigation";
+import { registerServiceWorker } from "@/serviceWorker/registerServiceWorker";
 
 type Props = {
   question: Question;
@@ -26,6 +27,8 @@ type Props = {
   ) => Promise<APIResponse<void>>;
   userId: string;
 };
+
+registerServiceWorker();
 
 export const QuestionPresentational: FC<Props> = ({
   question,
