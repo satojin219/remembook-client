@@ -17,23 +17,20 @@ export const addCoin = async (
   }
 
   try {
-    const res = await fetch(
-      `${process.env.REMEMBOOK_API_URL}/api/v1/user/charge`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken.value}`,
-        },
-        body: JSON.stringify({ amount, sessionId }),
-      }
-    );
+    const res = await fetch(`${process.env.REMEMBOOK_API_URL}/api/v1/coin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken.value}`,
+      },
+      body: JSON.stringify({ amount, sessionId, coinType: "Paid" }),
+    });
 
     // if (!res.ok) {
     //   const errorResponse = (await res.json()) as ErrorType;
     //   throw errorResponse;
     // }
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/revalidate`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/revalidate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
