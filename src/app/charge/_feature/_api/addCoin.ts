@@ -23,7 +23,7 @@ export const addCoin = async (
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken.value}`,
       },
-      body: JSON.stringify({ amount, sessionId, coinType: "Paid" }),
+      body: JSON.stringify({ amount, sessionId, coinType: "PAID" }),
     });
 
     // if (!res.ok) {
