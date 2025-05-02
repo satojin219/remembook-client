@@ -4,13 +4,14 @@ import type { APIResponse } from "@/types/common";
 import type { Question } from "@/types/question";
 import type { AnswerResponse } from "./_api/answerQuestion";
 import { Button, Field, Label, Textarea } from "@headlessui/react";
-import { useActionState, type FC } from "react";
+import { useActionState, useState, type FC } from "react";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { answerSchema } from "./_schema";
 import { enablePushNotification } from "@/serviceWorker/enablePushNotification";
 import { useParams } from "next/navigation";
 import { registerServiceWorker } from "@/serviceWorker/registerServiceWorker";
+import { usePushNotification } from "@/app/memo/[book_id]/question/[memo_id]/_feature/_hooks/usePushNotification";
 
 type Props = {
   question: Question;
@@ -47,6 +48,33 @@ export const QuestionPresentational: FC<Props> = ({
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [isReminderScheduled, setIsReminderScheduled] = useState(false);
+  const [scheduleError, setScheduleError] = useState<string | null>(null);
+  const { isNotificationEnabled, error: notificationError } =
+    usePushNotification();
+
+  const handleScheduleNotification = async () => {
+    try {
+      setIsLoading(true);
+      setScheduleError(null);
+      const result = await scheduleNotification(
+        userId,
+        book_id as string,
+        question.memoId,
+        question.body,
+        lastResult.data?.score || 0
+      );
+
+      if (result.ok) {
+        setIsReminderScheduled(true);
+      }
+    } catch (err) {
+      setScheduleError("リマインダーの設定中にエラーが発生しました。");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="max-w-2xl mx-auto p-6">
@@ -118,26 +146,36 @@ export const QuestionPresentational: FC<Props> = ({
             <h3 className="text-sm font-medium text-gray-700 mb-4">
               復習リマインダー
             </h3>
+            {notificationError && (
+              <p className="text-red-500 text-sm mb-4">{notificationError}</p>
+            )}
+            {scheduleError && (
+              <p className="text-red-500 text-sm mb-4">{scheduleError}</p>
+            )}
             <div className="flex flex-col sm:flex-row gap-3">
+              {!isNotificationEnabled && (
+                <Button
+                  type="button"
+                  className="flex-1 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors">
+                  通知を有効にする
+                </Button>
+              )}
               <Button
                 type="button"
-                onClick={enablePushNotification}
-                className="flex-1 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors">
-                通知を有効にする
-              </Button>
-              <Button
-                type="button"
-                onClick={() => {
-                  scheduleNotification(
-                    userId,
-                    book_id as string,
-                    question.memoId,
-                    question.body,
-                    lastResult.data?.score || 0
-                  );
-                }}
-                className="flex-1 bg-blue-50 text-blue-700 py-2 px-4 rounded-lg hover:bg-blue-100 transition-colors">
-                復習リマインダーを設定
+                onClick={handleScheduleNotification}
+                disabled={
+                  isLoading || isReminderScheduled || !isNotificationEnabled
+                }
+                className="flex-1 bg-blue-50 text-blue-700 py-2 px-4 rounded-lg hover:bg-blue-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                {isLoading ? (
+                  <span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full mr-2">
+                    復習リマインダーを設定中...
+                  </span>
+                ) : isReminderScheduled ? (
+                  "リマインダーを設定済み"
+                ) : (
+                  "復習リマインダーを設定"
+                )}
               </Button>
             </div>
           </div>
