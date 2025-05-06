@@ -25,6 +25,7 @@ export const BookInfo: FC<Props> = async ({ book }) => {
             objectFit="contain"
             className="w-auto h-full group-hover:scale-105 transition-transform duration-300"
             sizes="180px"
+            unoptimized
           />
         </div>
 

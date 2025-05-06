@@ -38,6 +38,7 @@ export const NotedBookList: FC<Props> = async ({ books }) => {
               height={174}
               className="object-contain w-auto h-[174px] group-hover:scale-105 transition-transform duration-300"
               sizes="120px"
+              unoptimized
             />
           </div>
           <div className="space-y-1">

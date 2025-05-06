@@ -31,6 +31,7 @@ export const LoginPresentational: FC = () => {
             width={180}
             height={48}
             className="mx-auto"
+            unoptimized
           />
           <h2 className="mt-6 text-3xl font-bold text-gray-900">
             アカウントにログイン
