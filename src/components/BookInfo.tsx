@@ -51,7 +51,11 @@ export const BookInfo: FC<Props> = async ({ book }) => {
 
           <div className="mt-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-2">概要</h2>
-            <p className="text-gray-600 leading-relaxed">{book.description}</p>
+            <div
+              className="text-gray-600 leading-relaxed"
+              // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+              dangerouslySetInnerHTML={{ __html: book.description }}
+            />
           </div>
 
           <a
