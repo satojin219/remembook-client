@@ -41,6 +41,15 @@ const nextConfig = {
       },
     ];
   },
+  // 本番ビルドの最適化
+  swcMinify: true,
+  // 不要なコードの削除
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
+  },
+  // 静的ファイルの最適化
+  poweredByHeader: false,
+  compress: true,
 };
 
 export default withMDX(nextConfig);
