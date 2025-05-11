@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { QuestionContainer } from "./_feature/container";
 
+export const runtime = "edge";
+
 export const metadata: Metadata = {
   title: "質問回答 - remembook",
   description:

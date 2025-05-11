@@ -1,5 +1,6 @@
 import { UnAuthorizeHeader } from "@/components/UnAuthorizeHeader";
 
+export const runtime = "edge";
 
 export default function Custom404() {
   return (
