@@ -10,7 +10,8 @@
     "build:worker": "cloudflare",
     "dev:worker": "wrangler dev --port 8771",
     "preview:worker": "npm run build:worker && npm run dev:worker",
-    "deploy:worker": "npm run build:worker && wrangler deploy"
+    "deploy:worker": "npm run build:worker && wrangler deploy",
+    "pages:build": "npx @cloudflare/next-on-pages"
   },
   "engines": {
     "node": ">=18.18.0"
