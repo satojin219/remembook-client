@@ -1,7 +1,9 @@
 import { BookContainer } from "./_feature/container";
 
+export const runtime = "edge";
+
 const Page = () => {
-  return <BookContainer  />;
+  return <BookContainer />;
 };
 
 export default Page;

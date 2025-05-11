@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { MemoContainer } from "./_feature/container";
 
+export const runtime = "edge";
+
 export const metadata: Metadata = {
   title: "メモ - remembook",
   description:

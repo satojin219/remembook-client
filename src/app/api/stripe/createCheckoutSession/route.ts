@@ -3,6 +3,8 @@ import "server-only";
 import { NextResponse, type NextRequest } from "next/server";
 import Stripe from "stripe";
 
+export const runtime = "edge";
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
 
 export type CreateCheckoutSessionPayload = {

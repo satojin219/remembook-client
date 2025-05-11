@@ -4,6 +4,8 @@ import { adminDatabase } from "@/lib/firebase/adminConfig";
 import { cookies } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
 
+export const runtime = "edge";
+
 export async function POST(req: NextRequest) {
   try {
     const { fcmToken } = await req.json();

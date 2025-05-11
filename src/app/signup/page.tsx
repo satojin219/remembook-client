@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { SignupContainer } from "./_feature";
+import { SignupContainer } from "./_feature/container";
+
+export const runtime = "edge";
 
 export const metadata: Metadata = {
   title: "新規登録 - remembook",

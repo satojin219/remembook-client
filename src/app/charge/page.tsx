@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ChargeContainer } from "./_feature/container";
 
+export const runtime = "edge";
+
 export const metadata: Metadata = {
   title: "コインの購入 - remembook",
   description:

@@ -6,6 +6,8 @@ import type { GoogleBooksApiResponseById } from "@/types/googleBook";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
+export const runtime = "edge";
+
 type Params = {
   book_id: string;
 };

@@ -6,6 +6,8 @@ import type { GoogleBooksApiResponse } from "@/types/googleBook";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
+export const runtime = "edge";
+
 export async function GET(req: NextRequest) {
   const searchWord = req.nextUrl.searchParams.get("searchWord");
   const response = await fetch(

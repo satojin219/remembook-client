@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { NotedContainer } from "./_feature/container";
 
+export const runtime = "edge";
+
 export const metadata: Metadata = {
   title: "メモ一覧 - remembook",
   description:

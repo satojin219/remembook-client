@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { LgoinContainer } from "./_feature";
+import { LgoinContainer } from "./_feature/container";
+
+export const runtime = "edge";
 
 export const metadata: Metadata = {
   title: "ログイン - remembook",

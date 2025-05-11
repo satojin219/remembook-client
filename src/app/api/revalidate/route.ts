@@ -1,6 +1,8 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse, type NextRequest } from "next/server";
 
+export const runtime = "edge";
+
 type RevalidatePayload = {
   tag: string;
 };

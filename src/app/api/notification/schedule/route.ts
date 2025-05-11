@@ -2,6 +2,8 @@ import type { sendQuestionTask } from "@/trigger/sendQuestion";
 import { tasks } from "@trigger.dev/sdk/v3";
 import { NextResponse, type NextRequest } from "next/server";
 
+export const runtime = "edge";
+
 type SendQuestionPayload = {
   userId: string;
   bookId: string;
