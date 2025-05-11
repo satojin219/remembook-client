@@ -6,7 +6,11 @@
     "dev": "next dev --experimental-https",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:worker": "cloudflare",
+    "dev:worker": "wrangler dev --port 8771",
+    "preview:worker": "npm run build:worker && npm run dev:worker",
+    "deploy:worker": "npm run build:worker && wrangler deploy"
   },
   "engines": {
     "node": ">=18.18.0"
@@ -35,6 +39,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@opennextjs/cloudflare": "^1.0.2",
     "@trigger.dev/build": "3.3.12",
     "@types/node": "^20",
     "@types/react": "^19",
