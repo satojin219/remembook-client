@@ -1,6 +1,5 @@
 import "server-only";
 
-import { adminDatabase } from "@/lib/firebase/adminConfig";
 import { cookies } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
 
@@ -19,8 +18,20 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const userRef = adminDatabase.ref(`users/${userId.value}`);
-    await userRef.set({ fcmToken });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}/users/${userId.value}.json`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ fcmToken }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to save FCM token");
+    }
 
     return NextResponse.json({ ok: true }, { status: 200 });
   } catch (error) {
