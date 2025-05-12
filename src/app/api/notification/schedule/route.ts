@@ -37,14 +37,21 @@ const sendQuestion = async (
 ) => {
   const { userId, bookId, memoId, body, delay } = payload;
 
-  await tasks.trigger<typeof sendQuestionTask>(
-    "send-question-task",
-    {
-      userId,
-      bookId,
-      memoId,
-      body,
-    },
-    { delay: `${24 * delay}h` }
-  );
+  try {
+    const result = await tasks.trigger<typeof sendQuestionTask>(
+      "send-question-task",
+      {
+        userId,
+        bookId,
+        memoId,
+        body,
+      },
+      { delay: `${24 * delay}h` }
+    );
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error("Failed to trigger send-question-task:", error);
+    throw error;
+  }
 };
