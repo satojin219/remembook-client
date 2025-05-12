@@ -4,7 +4,7 @@ import type { APIResponse } from "@/types/common";
 import type { Question } from "@/types/question";
 import type { AnswerResponse } from "./_api/answerQuestion";
 import { Button, Field, Label, Textarea } from "@headlessui/react";
-import { useActionState, useState, type FC } from "react";
+import { useActionState, useState, type FC, useEffect } from "react";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { answerSchema } from "./_schema";
@@ -29,14 +29,16 @@ type Props = {
   userId: string;
 };
 
-registerServiceWorker();
-
 export const QuestionPresentational: FC<Props> = ({
   question,
   answerQuestion,
   scheduleNotification,
   userId,
 }) => {
+  useEffect(() => {
+    registerServiceWorker();
+  }, []);
+
   const { book_id } = useParams();
   const [lastResult, action, isPending] = useActionState(answerQuestion, {
     ok: false,

@@ -1,3 +1,5 @@
+"use client";
+
 export async function registerServiceWorker() {
   const registration = await window.navigator.serviceWorker
     .register("/firebase-messaging-sw.js")
