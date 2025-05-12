@@ -27,11 +27,6 @@ export const QuestionList: FC<Props> = async ({ bookId, questions }) => {
     <div className="space-y-4">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold text-gray-900">メモ一覧</h2>
-        <Link
-          href={`/book/${bookId}`}
-          className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-          新しいメモを作成
-        </Link>
       </div>
 
       <div className="grid gap-4">

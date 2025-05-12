@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import { BookDetailPresentational } from "./presentational";
 import { BookInfo } from "@/components/BookInfo";
-import { createMemo } from "./_api";
+import { createMemo } from "@/lib/api/createMemo";
 import { getBook } from "@/lib/api";
 
 type Props = {

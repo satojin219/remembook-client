@@ -5,12 +5,15 @@ import { fetchBookDetail } from "./_api";
 import { BookInfo } from "@/components";
 import { QuestionList } from "./_components";
 import { getBook } from "@/lib/api";
+import { createMemo } from "@/lib/api/createMemo";
+import { MemoPresentational } from "./presentational";
 
 type Props = {
   bookId: string;
 };
 
 export const MemoContainer: FC<Props> = async ({ bookId }) => {
+  console.log(bookId);
   const memo = await fetchBookDetail(bookId);
   const book = await getBook(memo.data?.book.googleBooksId || "");
 
@@ -39,6 +42,7 @@ export const MemoContainer: FC<Props> = async ({ bookId }) => {
               bookId={book.data?.id || ""}
               questions={memo.data?.questions || []}
             />
+            <MemoPresentational book={book.data} createMemo={createMemo} />
           </Suspense>
         </div>
       </div>

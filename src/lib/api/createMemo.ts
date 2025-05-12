@@ -3,10 +3,10 @@
 import { parseWithZod } from "@conform-to/zod";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { createMemoSchema } from "../_schema";
+
 import type { Book } from "@/types/book";
 import { type ErrorType, getErrorMessage } from "@/lib/error";
-
+import { createMemoSchema } from "@/lib/schema/createMemo";
 export async function createMemo(
   book: Book,
   _prevState: unknown,
@@ -29,10 +29,10 @@ export async function createMemo(
   try {
     const res = await fetch(`${process.env.REMEMBOOK_API_URL}/api/v1/memo`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken.value}`,
-        credentials: "include",
       },
       body: JSON.stringify({
         body: memo,

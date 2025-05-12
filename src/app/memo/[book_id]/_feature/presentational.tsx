@@ -15,7 +15,7 @@ type Props = {
   ) => Promise<SubmissionResult<string[]>>;
 };
 
-export const BookDetailPresentational: FC<Props> = ({ book, createMemo }) => {
+export const MemoPresentational: FC<Props> = ({ book, createMemo }) => {
   if (!book) {
     return null;
   }
