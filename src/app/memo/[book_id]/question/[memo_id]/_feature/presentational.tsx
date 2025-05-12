@@ -69,9 +69,11 @@ export const QuestionPresentational: FC<Props> = ({
       );
 
       if (result.ok) {
+        console.log(result.data);
         setIsReminderScheduled(true);
       }
     } catch (err) {
+      console.error(err);
       setScheduleError("リマインダーの設定中にエラーが発生しました。");
     } finally {
       setIsLoading(false);

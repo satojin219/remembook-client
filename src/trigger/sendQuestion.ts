@@ -32,7 +32,8 @@ export const sendQuestionTask = task({
           body: body,
         },
         fcmOptions: {
-          link: `${process.env.NEXT_PUBLIC_API_BASE_URL}/memo/${bookId}/question/${memoId}`,
+          // NOTE: vercelではなく、Cloudflare Pagesなので環境変数をvercelとリンクさせることができない。なのでハードコードをしている。
+          link: `https://remembook-client.pages.dev/memo/${bookId}/question/${memoId}`,
         },
       },
       token: fcmToken,
