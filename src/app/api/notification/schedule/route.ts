@@ -1,6 +1,7 @@
 import type { sendQuestionTask } from "@/trigger/sendQuestion";
 import { tasks } from "@trigger.dev/sdk/v3";
 import { NextResponse, type NextRequest } from "next/server";
+import { date } from "zod";
 
 export const runtime = "edge";
 
@@ -18,7 +19,7 @@ export async function POST(req: NextRequest) {
   const delay = score >= 80 ? 7 : score >= 50 ? 3 : 1;
 
   try {
-    sendQuestion({
+    const result = await sendQuestion({
       userId,
       bookId,
       memoId,
@@ -26,9 +27,9 @@ export async function POST(req: NextRequest) {
       delay,
     });
 
-    return NextResponse.json({ ok: true }, { status: 200 });
+    return NextResponse.json({ ok: true, date: result }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ ok: false }, { status: 500 });
+    return NextResponse.json({ ok: false, error: error }, { status: 500 });
   }
 }
 
