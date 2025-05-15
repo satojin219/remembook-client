@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 type Props = {
   sessionId: string | undefined;
 };
-const PER_COIN_PRICE = 50;
+const PER_COIN_PRICE = 10;
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
 

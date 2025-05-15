@@ -12,7 +12,7 @@ type Props = {
   ) => Promise<APIResponse<CreateCheckoutLinkResponse>>;
 };
 
-const COIN_PRICE = 50;
+const COIN_PRICE = 10;
 
 export const ChargePresentational: FC<Props> = ({ createCheckoutLink }) => {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
@@ -43,7 +43,7 @@ export const ChargePresentational: FC<Props> = ({ createCheckoutLink }) => {
         コインを購入
       </h1>
       <p className="text-center text-gray-600 mb-8">1コイン = {COIN_PRICE}円</p>
-
+      <p className="text-center text-red-500 mb-8">コインの有効期限は180日です。</p>
       <div className="bg-white rounded-lg shadow-md p-6">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">
           カスタム金額
