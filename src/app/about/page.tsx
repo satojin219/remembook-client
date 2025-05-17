@@ -194,6 +194,38 @@ export default function AboutPage() {
         </div>
       </div>
 
+      {/* Pricing Section */}
+      <div className="bg-gray-50 py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl lg:text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              シンプルな料金体系
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+              AIが生成した質問に回答する時1枚コインを消費します。
+            </p>
+          </div>
+          <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
+            <div className="bg-white rounded-xl p-8 shadow-sm ring-1 ring-gray-200">
+              <div className="text-center">
+                <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+                  コイン購入
+                </h3>
+                <p className="text-lg text-gray-600 mb-6">
+                  1コイン = 10円
+                  <br />
+                  5枚単位で購入可能（最低5枚から）
+                </p>
+                <p className="text-sm text-gray-500">
+                  ※ 決済にはStripeを利用しています
+                  <br />※ コインの有効期限は有償/無償ともに180日間です
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* CTA Section */}
       <div className="bg-blue-600">
         <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
