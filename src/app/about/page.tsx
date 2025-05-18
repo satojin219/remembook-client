@@ -24,27 +24,27 @@ export default function AboutPage() {
   const features = [
     {
       id: 1,
-      title: "読みたい本を検索",
-      description: "書籍データベースから要約したい本を探します。",
+      title: "学習したい本を検索",
+      description: "書籍データベースから学習したい本を探します。",
       icon: "📚",
     },
     {
       id: 2,
-      title: "要約を書く",
+      title: "メモを書く",
       description: "本の内容を自分の言葉でまとめます。",
       icon: "✍️",
     },
     {
       id: 3,
       title: "AIが質問を作成",
-      description: "要約をもとに、GPT-4-miniが理解度を確認する質問を生成。",
+      description: "メモをもとに、GPT-4-miniが理解度を確認する質問を生成。",
       icon: "🤖",
     },
     {
       id: 4,
       title: "質問に回答し、スコア化",
       description:
-        "text-embedding-3-smallが解答と過去の要約の類似度を分析し、スコアを算出。",
+        "text-embedding-3-smallが解答と過去のメモの類似度を分析し、スコアを算出。",
       icon: "📊",
     },
     {
@@ -58,7 +58,7 @@ export default function AboutPage() {
   const reminderScores = [
     { score: "50点未満", timing: "1日後", color: "bg-red-100 text-red-800" },
     {
-      score: "50点以上80点未満",
+      score: "50点~80点",
       timing: "3日後",
       color: "bg-yellow-100 text-yellow-800",
     },
@@ -72,7 +72,7 @@ export default function AboutPage() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <div className="relative isolate overflow-hidden bg-gradient-to-b from-blue-100/20">
+      <section className="relative isolate overflow-hidden bg-gradient-to-b from-blue-100/20">
         <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40">
           <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8">
             <h1 className="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
@@ -113,10 +113,10 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Problem Section */}
-      <div className="bg-white py-24 sm:py-32">
+      <section className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -125,7 +125,7 @@ export default function AboutPage() {
               知識の定着度が大きく向上します
             </h2>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              でも、「要約を書くのが面倒」「復習のタイミングが分からない」…
+              でも、「アウトプットと言っても何をしていいか分からない」「復習のタイミングが分からない、面倒臭い」…
               <br />
               そんな悩みもありますよね。
               <br />
@@ -133,10 +133,10 @@ export default function AboutPage() {
             </p>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Features Section */}
-      <div id="features" className="bg-gray-50 py-24 sm:py-32">
+      <section id="features" className="bg-gray-50 py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -147,7 +147,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
               {features.map((feature) => (
                 <div
                   key={feature.id}
@@ -160,46 +160,78 @@ export default function AboutPage() {
                   </dt>
                   <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
                     <p className="flex-auto">{feature.description}</p>
+                    {feature.id === 1 && (
+                      <div className="mt-6">
+                        <Image
+                          src="/about/search-book.png"
+                          alt="本の検索画面"
+                          width={400}
+                          height={300}
+                          className="rounded-lg shadow-md"
+                        />
+                      </div>
+                    )}
+                    {feature.id === 2 && (
+                      <div className="mt-6">
+                        <Image
+                          src="/about/memo-book.png"
+                          alt="要約作成画面"
+                          width={400}
+                          height={300}
+                          className="rounded-lg shadow-md"
+                        />
+                      </div>
+                    )}
+                    {feature.id === 3 && (
+                      <div className="mt-6">
+                        <Image
+                          src="/about/generate-question.png"
+                          alt="AI質問生成画面"
+                          width={400}
+                          height={300}
+                          className="rounded-lg shadow-md"
+                        />
+                      </div>
+                    )}
+                    {feature.id === 4 && (
+                      <div className="mt-6">
+                        <Image
+                          src="/about/result.png"
+                          alt="スコア結果画面"
+                          width={400}
+                          height={300}
+                          className="rounded-lg shadow-md"
+                        />
+                      </div>
+                    )}
+                    {feature.id === 5 && (
+                      <dl className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
+                        {reminderScores.map((item) => (
+                          <div
+                            key={item.score}
+                            className={`rounded-lg ${item.color} p-6 text-center`}>
+                            <dt className="text-lg font-semibold mb-2">
+                              {item.score}
+                            </dt>
+                            <dd className="text-base">{item.timing}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    )}
                   </dd>
                 </div>
               ))}
             </dl>
           </div>
         </div>
-      </div>
-
-      {/* Reminder Score Section */}
-      <div className="bg-white py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              スコアに応じた最適な復習タイミング
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              AIが分析したスコアに基づいて、最適なタイミングで復習をリマインドします
-            </p>
-          </div>
-          <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-            <dl className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-              {reminderScores.map((item) => (
-                <div
-                  key={item.score}
-                  className={`rounded-lg ${item.color} p-6 text-center`}>
-                  <dt className="text-lg font-semibold mb-2">{item.score}</dt>
-                  <dd className="text-base">{item.timing}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </div>
-      </div>
+      </section>
 
       {/* Pricing Section */}
-      <div className="bg-gray-50 py-24 sm:py-32">
+      <section className="bg-gray-50 py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              シンプルな料金体系
+              料金
             </h2>
             <p className="mt-6 text-lg leading-8 text-gray-600">
               AIが生成した質問に回答する時1枚コインを消費します。
@@ -209,7 +241,7 @@ export default function AboutPage() {
             <div className="bg-white rounded-xl p-8 shadow-sm ring-1 ring-gray-200">
               <div className="text-center">
                 <h3 className="text-2xl font-semibold text-gray-900 mb-4">
-                  コイン購入
+                  Remembookコイン
                 </h3>
                 <p className="text-lg text-gray-600 mb-6">
                   1コイン = 10円
@@ -224,10 +256,10 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* CTA Section */}
-      <div className="bg-blue-600">
+      <section className="bg-blue-600">
         <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
@@ -252,7 +284,7 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
