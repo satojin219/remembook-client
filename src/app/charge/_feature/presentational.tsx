@@ -5,6 +5,7 @@ import type { FC } from "react";
 import { useState } from "react";
 import type { CreateCheckoutLinkResponse } from "./_api/createCheckoutLink";
 import { PolicyDialog } from "@/components/PolicyDialog";
+import { COIN_PRICE, PER_COIN_AMOUNT } from "@/lib/coin";
 
 type Props = {
   createCheckoutLink: (
@@ -12,7 +13,7 @@ type Props = {
   ) => Promise<APIResponse<CreateCheckoutLinkResponse>>;
 };
 
-const COIN_PRICE = 50;
+
 
 export const ChargePresentational: FC<Props> = ({ createCheckoutLink }) => {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
@@ -43,7 +44,8 @@ export const ChargePresentational: FC<Props> = ({ createCheckoutLink }) => {
         コインを購入
       </h1>
       <p className="text-center text-gray-600 mb-8">
-        1コイン = {COIN_PRICE}円。コインは5枚単位で購入でき、1回の決済につき最低5枚から購入できます。
+        1コイン = {COIN_PRICE}
+        円。コインは5枚単位で購入でき、1回の決済につき最低5枚から購入できます。
       </p>
       <p className="text-center text-red-500 mb-8">
         コインの有効期限は180日です。
@@ -57,7 +59,7 @@ export const ChargePresentational: FC<Props> = ({ createCheckoutLink }) => {
             <label
               htmlFor="custom-amount"
               className="block text-sm text-gray-600 mb-2">
-              購入するコインの数を入力
+              購入する数量を入力
             </label>
             <div className="space-y-2">
               <input
@@ -69,11 +71,6 @@ export const ChargePresentational: FC<Props> = ({ createCheckoutLink }) => {
                 onChange={(e) => setSelectedAmount(Number(e.target.value))}
                 value={selectedAmount || ""}
               />
-              {selectedAmount && (
-                <p className="text-right text-sm text-gray-600">
-                  支払い金額: ¥{(selectedAmount * COIN_PRICE).toLocaleString()}
-                </p>
-              )}
             </div>
           </div>
 
@@ -94,8 +91,10 @@ export const ChargePresentational: FC<Props> = ({ createCheckoutLink }) => {
                 <span>処理中...</span>
               </div>
             ) : selectedAmount ? (
-              `${selectedAmount}コイン (¥${(
-                selectedAmount * COIN_PRICE
+              `${selectedAmount * PER_COIN_AMOUNT}コイン (¥${(
+                selectedAmount *
+                COIN_PRICE *
+                PER_COIN_AMOUNT
               ).toLocaleString()}) を購入`
             ) : (
               "コインの数を入力してください"

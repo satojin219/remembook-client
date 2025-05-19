@@ -2,6 +2,7 @@ import "server-only";
 
 import { NextResponse, type NextRequest } from "next/server";
 import Stripe from "stripe";
+import { COIN_PRICE, PER_COIN_AMOUNT } from "@/lib/coin";
 
 export const runtime = "edge";
 
@@ -11,7 +12,7 @@ export type CreateCheckoutSessionPayload = {
   amount: number;
 };
 
-const PER_COIN_PRICE = 50;
+
 
 export async function POST(req: NextRequest) {
   const { amount } = (await req.json()) as CreateCheckoutSessionPayload;
@@ -24,9 +25,9 @@ export async function POST(req: NextRequest) {
           price_data: {
             currency: "jpy",
             product_data: {
-              name: "remembookコイン",
+              name: `remembookコイン ${amount * PER_COIN_AMOUNT}枚`,
             },
-            unit_amount: PER_COIN_PRICE,
+            unit_amount: COIN_PRICE  * PER_COIN_AMOUNT,
           },
           quantity: amount,
         },
