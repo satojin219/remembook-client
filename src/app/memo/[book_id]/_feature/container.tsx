@@ -5,8 +5,9 @@ import { fetchBookDetail } from "./_api";
 import { BookInfo } from "@/components";
 import { QuestionList } from "./_components";
 import { getBook } from "@/lib/api";
-import { createMemo } from "@/lib/api/createMemo";
+
 import { MemoPresentational } from "./presentational";
+import { createMemo } from "./_api/createMemo";
 
 type Props = {
   bookId: string;

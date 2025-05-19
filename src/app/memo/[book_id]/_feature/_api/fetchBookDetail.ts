@@ -30,6 +30,9 @@ export const fetchBookDetail = async (
           Authorization: `Bearer ${accessToken.value}`,
           credentials: "include",
         },
+        next: {
+          tags: [`book-${bookId}`],
+        },
       }
     );
 

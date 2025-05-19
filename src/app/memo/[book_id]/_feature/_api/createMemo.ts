@@ -3,6 +3,7 @@
 import { parseWithZod } from "@conform-to/zod";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { revalidateTag } from "next/cache";
 
 import type { Book } from "@/types/book";
 import { type ErrorType, getErrorMessage } from "@/lib/error";
@@ -46,10 +47,11 @@ export async function createMemo(
       const errorResponse = (await res.json()) as ErrorType;
       throw errorResponse;
     }
+    revalidateTag(`book-${book.id}`);
+    return submission.reply();
   } catch (e) {
     return submission.reply({
       formErrors: [getErrorMessage((e as ErrorType).error.code)],
     });
   }
-  redirect("/memo");
 }

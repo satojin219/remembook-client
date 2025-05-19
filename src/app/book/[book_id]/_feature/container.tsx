@@ -3,8 +3,9 @@
 import { Suspense } from "react";
 import { BookDetailPresentational } from "./presentational";
 import { BookInfo } from "@/components/BookInfo";
-import { createMemo } from "@/lib/api/createMemo";
+
 import { getBook } from "@/lib/api";
+import { createMemo } from "./_api/createMemo";
 
 type Props = {
   bookId: string;
