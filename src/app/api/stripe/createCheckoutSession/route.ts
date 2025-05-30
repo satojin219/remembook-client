@@ -25,9 +25,9 @@ export async function POST(req: NextRequest) {
           price_data: {
             currency: "jpy",
             product_data: {
-              name: `remembookコイン ${amount * PER_COIN_AMOUNT}枚`,
+              name: `remembookコイン ${amount}枚`,
             },
-            unit_amount: COIN_PRICE  * PER_COIN_AMOUNT,
+            unit_amount: COIN_PRICE,
           },
           quantity: amount,
         },
@@ -39,6 +39,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ url: session.url }, { status: 200 });
   } catch (error) {
+    console.log(error); 
     return NextResponse.json({ ok: false }, { status: 500 });
   }
 }

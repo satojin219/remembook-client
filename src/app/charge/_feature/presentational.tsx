@@ -13,12 +13,16 @@ type Props = {
   ) => Promise<APIResponse<CreateCheckoutLinkResponse>>;
 };
 
-
-
 export const ChargePresentational: FC<Props> = ({ createCheckoutLink }) => {
-  const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const calculateBonusCoins = (baseAmount: number) => {
+    if (baseAmount >= 50) {
+      return Math.floor(baseAmount / 10);
+    }
+    return 0;
+  };
 
   const handlePurchase = async (amount: number) => {
     setIsLoading(true);
@@ -52,26 +56,38 @@ export const ChargePresentational: FC<Props> = ({ createCheckoutLink }) => {
       </p>
       <div className="bg-white rounded-lg shadow-md p-6">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">
-          カスタム金額
+          コインを選択
         </h2>
         <div className="space-y-4">
-          <div>
-            <label
-              htmlFor="custom-amount"
-              className="block text-sm text-gray-600 mb-2">
-              購入する数量を入力
-            </label>
-            <div className="space-y-2">
-              <input
-                type="number"
-                id="custom-amount"
-                min={1}
-                placeholder="例: 300"
-                className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                onChange={(e) => setSelectedAmount(Number(e.target.value))}
-                value={selectedAmount || ""}
-              />
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              { amount: 10, label: "10枚" },
+              { amount: 50, label: "50枚 + 5枚ボーナス" },
+              { amount: 100, label: "100枚 + 10枚ボーナス" },
+            ].map((option) => {
+              const bonusCoins = calculateBonusCoins(option.amount);
+              const totalCoins = option.amount + bonusCoins;
+              const totalPrice = option.amount * COIN_PRICE;
+
+              return (
+                <button
+                  key={option.amount}
+                  type="button"
+                  onClick={() => handlePurchase(option.amount)}
+                  disabled={isLoading}
+                  className="p-4 rounded-lg border-2 border-gray-200 hover:border-blue-300 transition-all">
+                  <div className="font-semibold text-lg">{option.label}</div>
+                  <div className="text-gray-600 mt-1">
+                    ¥{totalPrice.toLocaleString()}
+                  </div>
+                  {bonusCoins > 0 && (
+                    <div className="text-sm text-green-600 mt-1">
+                      +{bonusCoins}枚ボーナス
+                    </div>
+                  )}
+                </button>
+              );
+            })}
           </div>
 
           {error && (
@@ -80,26 +96,12 @@ export const ChargePresentational: FC<Props> = ({ createCheckoutLink }) => {
             </div>
           )}
 
-          <button
-            type="button"
-            disabled={!selectedAmount || isLoading}
-            onClick={() => selectedAmount && handlePurchase(selectedAmount)}
-            className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-            {isLoading ? (
-              <div className="flex items-center justify-center gap-2">
-                <div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full" />
-                <span>処理中...</span>
-              </div>
-            ) : selectedAmount ? (
-              `${selectedAmount * PER_COIN_AMOUNT}コイン (¥${(
-                selectedAmount *
-                COIN_PRICE *
-                PER_COIN_AMOUNT
-              ).toLocaleString()}) を購入`
-            ) : (
-              "コインの数を入力してください"
-            )}
-          </button>
+          {isLoading && (
+            <div className="flex items-center justify-center gap-2">
+              <div className="animate-spin h-5 w-5 border-2 border-blue-600 border-t-transparent rounded-full" />
+              <span>処理中...</span>
+            </div>
+          )}
         </div>
       </div>
 
