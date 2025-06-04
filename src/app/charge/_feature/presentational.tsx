@@ -49,7 +49,7 @@ export const ChargePresentational: FC<Props> = ({ createCheckoutLink }) => {
       </h1>
       <p className="text-center text-gray-600 mb-8">
         1コイン = {COIN_PRICE}
-        円。コインは5枚単位で購入でき、1回の決済につき最低5枚から購入できます。
+        円。
       </p>
       <p className="text-center text-red-500 mb-8">
         コインの有効期限は180日です。
