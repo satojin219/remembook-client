@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export const UnAuthorizeHeader = async () => {
   return (
-    <header className=" bg-white shadow-md">
+    <header className="sticky top-0 z-50 bg-white shadow-md">
       <div className="container mx-auto px-4 py-2 flex justify-between items-center">
         <Link href="/" className="flex items-center">
           <Image

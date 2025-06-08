@@ -8,7 +8,7 @@ export const Header = async () => {
   const user = await getMe();
 
   return (
-    <header className=" bg-white shadow-md">
+    <header className="sticky top-0 z-50 bg-white shadow-md">
       <div className="container mx-auto px-4 py-2 flex justify-between items-center">
         <Link href="/memo" className="flex items-center">
           <Image
