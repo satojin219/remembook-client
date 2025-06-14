@@ -231,7 +231,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              料金
+              料金体系
             </h2>
             <p className="mt-6 text-lg leading-8 text-gray-600">
               AIが生成した質問に回答する時1枚コインを消費します。
@@ -243,12 +243,22 @@ export default function AboutPage() {
                 <h3 className="text-2xl font-semibold text-gray-900 mb-4">
                   Remembookコイン
                 </h3>
-                <p className="text-lg text-gray-600 mb-6">
-                  1コイン = 10円
-                  <br />
-                  5枚単位で購入可能（最低5枚から）
-                </p>
-                <p className="text-sm text-gray-500">
+                <div className="space-y-4">
+                  <p className="text-lg text-gray-600">10枚セット：100円</p>
+                  <p className="text-lg text-gray-600">
+                    50枚セット：500円
+                    <span className="text-blue-600 font-semibold ml-2">
+                      （ボーナス5枚付与）
+                    </span>
+                  </p>
+                  <p className="text-lg text-gray-600">
+                    100枚セット：1,000円
+                    <span className="text-blue-600 font-semibold ml-2">
+                      （ボーナス10枚付与）
+                    </span>
+                  </p>
+                </div>
+                <p className="mt-6 text-sm text-gray-500">
                   ※ 決済にはStripeを利用しています
                   <br />※ コインの有効期限は有償/無償ともに180日間です
                 </p>
