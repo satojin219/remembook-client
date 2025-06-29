@@ -14,9 +14,9 @@ export const Header = async () => {
           <Image
             src="/headerLogo.svg"
             alt="remembook"
-            width={250}
+            width={200}
             height={60}
-            className="object-contain"
+            className="object-contain w-[200px] sm:w-[250px]"
           />
         </Link>
 
@@ -32,15 +32,14 @@ export const Header = async () => {
               width={24}
               height={24}
             />
-            <span className="font-medium">設定</span>
+            <span className="font-medium hidden sm:inline">設定</span>
           </Link>
           <Link
             href="/charge"
-            className="flex items-center gap-2 bg-yellow-50 hover:bg-yellow-100 px-4 py-2 rounded-full transition-colors">
+            className="flex items-center gap-2 bg-yellow-50 hover:bg-yellow-100 px-4 py-2 rounded-full transition-colors font-medium text-yellow-700">
             <Image src="/coin.svg" alt="coin" width={24} height={24} />
-            <span className="font-medium text-yellow-700">
-              {user.data?.coins ?? 0} コイン
-            </span>
+            {user.data?.coins ?? 0}
+            <span className=" hidden sm:inline">コイン</span>
           </Link>
         </div>
       </div>
