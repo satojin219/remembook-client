@@ -12,11 +12,11 @@ export const metadata: Metadata = {
     title: "remembook - AIで読書の理解を深める",
     description:
       "読書の理解度を高めるAI学習アプリ。要約作成、AI質問生成、スコアリング、最適なタイミングでの復習リマインドで、効率的な学習をサポートします。",
-    images: [{ url: "https://remembook.com/logo.svg" }],
+    images: [{ url: "https://remembook.com/ogp.jpg" }],
     type: "website",
     siteName: "remembook",
     locale: "ja",
-    url: "https://remembook.app",
+    url: "https://remembook.com",
   },
 };
 
