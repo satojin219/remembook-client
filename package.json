@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --experimental-https",
-    "build": "next build",
+    "build": "npm run partytown && next build",
+    "partytown": "partytown copylib public/~partytown",
     "start": "next start",
     "lint": "next lint",
     "build:worker": "cloudflare",
@@ -26,6 +27,7 @@
     "@next/mdx": "^15.2.2",
     "@next/third-parties": "^15.3.3",
     "@paypayopa/paypayopa-sdk-node": "^2.1.0",
+    "@qwik.dev/partytown": "^0.11.2",
     "@trigger.dev/sdk": "3.3.17",
     "@types/mdx": "^2.0.13",
     "crypto": "^1.0.1",
